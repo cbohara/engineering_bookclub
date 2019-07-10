@@ -1,0 +1,102 @@
+###################################
+what makes a pragmatic programmer?
+###################################
+1. early adopter/fast adapter
+you have an instinct for technology + techniques
+you love to try things out
+when you learn something new, you grasp it quickly + integrate with existing knowledge 
+
+2. inquisitive
+you tend to ask questions
+you are a pack rat for little facts 
+
+3. critical thinker
+you rarely take things as a given without examining the facts yourself
+
+4. realistic
+you try to understand the underlying nature of each challenge you face
+have realistic expectations of how difficult the task is and how long it will take
+gives you the stamina to keep at it
+
+5. jack of all trades 
+you try hard to be familiar with a broad range of technologies and environments
+you work to keep aware of new developments 
+
+######
+tip 1 - care about your craft 
+######
+there is no point about developing software unless you care about doing it well
+
+######
+tip 2 - think about your work
+######
+ongoing critical appraisal
+never run on autopilot
+
+#########################
+topic 1 - it's your life
+#########################
+######
+tip 3 - take agency
+######
+does your work environment suck?
+try to fix it, but not forever
+
+want to work remotely? have you asked?
+if they say no then find someone who will say yes
+
+be proactive
+
+#########################
+topic 2 - the cat ate my source code
+#########################
+take responsibility for yourself + your actions in terms of career advancement and learning
+
+your team needs to be able to trust you + rely on you 
+
+responsibility is something you have to actively agree to
+you have the right not to take responsibility
+
+when you do take responsibility you need to be accountable for it
+if you make mistakes admit it honestly and try to offer options
+
+don't blame or make up excuses 
+
+######
+tip 4 - provide options, don't make lame excuses
+######
+before you approach anyone to tell them why something cannot be done, is late, is broken > stop + write it down
+does your excuse sound reasonable or stupid?
+how would it sound to your boss?
+before you go and give them the bad news, is there anything else you can try?
+
+instead of excuses, provide options
+explain what can be done to salvage the situation
+
+do you need to learn something at greater depth? 
+would a book or course help?
+don't be afraid to ask or admit that you need help
+
+try to flush out the lame excuses before communicating them to someone else
+
+"I don't know - but I will find out"
+it's ok to admit you don't know AND take responsibility for learning more
+
+#########################
+topic 3 - software entropy
+#########################
+######
+tip 5 - don't live with broken windows
+######
+don't leave "broken windows" (bad design, wrong decisions, poor code) unrepaired
+fix it if you have time
+if you do not have time, at least board it up
+take some action to prevent further damage + show you are on top of the situation
+neglect accelerates rot more than any other factor
+
+don't cause collateral damage just because there is a crisis of some sort
+
+#########################
+topic 4 - stone soup + boiled frogs
+#########################
+
