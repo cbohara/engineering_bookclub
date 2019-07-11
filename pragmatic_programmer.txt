@@ -99,4 +99,47 @@ don't cause collateral damage just because there is a crisis of some sort
 #########################
 topic 4 - stone soup + boiled frogs
 #########################
+good idea to create a MVP to share 
+ppl tend to join an ongoing success vs a theoretical idea
 
+######
+tip 6 - be a catalyst of change
+######
+tip 7 - remember the big picture 
+######
+
+#########################
+topic 5 - good enough software
+#########################
+allow users to determine if you've built software that is good enough for their needs
+know when to stop and move on
+
+######
+tip 8 - make quality a requirements issue
+######
+often tradeoffs are involved when specifying requirements
+many users would prefer to use software with rough edges today vs wait a year for the polished version
+especially given what they may need something totally different in a year from now
+if you givce your users something to play with earlier > feedback > better product
+
+#########################
+topic 6 - your knowledge portfolio
+#########################
+"An investment in knowledge always pays the best interest" -Ben Franklin
+learning new things = most important strategic asset
+
+how do you learn how to learn?
+how do you learn what to learn?
+
+1. invest regularly
+consistently study
+
+2. diversify
+the more different things you know, the more valuable you are
+as a baseline know the ins-and-outs of the technology you need today 
+but don't stop there
+the more tech you know > better to adjust to constant change
+
+3. manage risk
+don't put all your technical eggs in one basket
+invest in high-risk, high-reward learning AND low-risk, low-reward learning
