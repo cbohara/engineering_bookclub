@@ -149,3 +149,43 @@ learning an emerging technology before it becomes popular can be as hard as find
 but the payoff can be just as rewarding
 
 5. review and rebalance
+
+######
+tip 9 - invest regularly in your knowledge portfolio
+######
+1. learn at least one new programming language every year
+different languages solve the same problems in different ways
+learning diff approaches > broaden thinking + avoid getting stuck in a rut
+
+2. read a technical book each month
+web articles are great but books > deep understanding
+
+3. read non-technical books too
+computers are used by people
+don't forget the human side of the equation = entirely different skill set
+
+4. take classes
+
+5. participate in local user groups + meetups
+don't just go + listen
+actively participate
+learn what other people are working on outside of your company
+
+6. experiment with diff environments
+ex: be willing to work with Pycharm :)
+
+7. stay current
+keep your finger on the pulse on tech outside your current project
+
+it doesn't matter if you use what you learn
+the process of learning > expand thinking > open to new possibilities + new ways of doing things
+
+opportunities for learning
+if you don't know the answer to the question, find out!
+take it as a personal challenge to find the answer
+
+if you can't find the answer yourself, find other people who do know the answer
+talk to other people about the problem + build your network
+
+critical thinking 
+think critically about what you learn
