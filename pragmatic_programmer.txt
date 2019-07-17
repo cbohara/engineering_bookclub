@@ -187,5 +187,52 @@ take it as a personal challenge to find the answer
 if you can't find the answer yourself, find other people who do know the answer
 talk to other people about the problem + build your network
 
+######
+tip 10 - critically analyze what you read and hear 
+######
 critical thinking 
 think critically about what you learn
+ensure your knowledge is accurate
+not swayed by vendor or media hype
+
+ask the 5 whys 
+a favorite consulting trick = ask why at least 5 times
+may get closer to the truth as a result
+
+who does this benefit? follow the money
+
+what's the context?
+consider an article touting best practices... best for who?
+what are the prereqs? what are the consequences?
+both short and long term
+
+when or where would this work?
+under what circumstances? 
+don't stop at what will happen next, keep going to what will happen after that?
+
+why is this a problem?
+is there an underlying model?
+does the underlying model work?
+
+#########################
+topic 7 - communicate 
+#########################
+a good idea is useless without effective communication
+treat english like you would write code = DRY, ETC, automation
+######
+tip 11 - English is just another programming language 
+######
+know your audience
+
+gather feedback 
+don't just wait for questions - ask for questions
+continually improve the knowledge of your audience as you communicate
+
+know what you want to say
+jot down a couple of ideas you want to communicate 
+plan a couple strategies for getting them across
+
+choose your moment
+"is this a good time to talk about...?"
+
+make it look good
