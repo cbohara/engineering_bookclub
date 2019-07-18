@@ -236,3 +236,42 @@ choose your moment
 "is this a good time to talk about...?"
 
 make it look good
+check spelling
+
+involve your audience
+we often find that the documents we produce end up being less important than the process we go through to produce them
+if possible, involve your readers in early drafts of the document
+get their feedback + pick their brains
+you'll build a good working relationship + you'll write a better doc as a result
+
+be a listener
+if you don't listen to them, they won't listen to you
+encourage people to talk by asking questions
+or have them summarize what you tell them
+turn the meeting into a dialogue + you'll make your point more effectively
+and who knows maybe you'll learn something :) 
+
+get back to people
+always respond to people even if it is to say "I'll get back to you later"
+keeping people informed makes them far more forgiving of the occassional slip
+makes them feel like you haven't forgotten them
+
+######
+tip 12 it's both what you say and the way you say it 
+######
+the more effective your communication, the more influential you become
+be mindful - email + slack is documentation that lasts forever 
+
+write documentation
+its an integral part of the development process
+it can make it easier by not duplicating efforts or wasting time
+keep the documentation close to the code 
+
+######
+tip 13 build documentation in, don't bolt it on
+######
+it's easy to produce good looking documentation from the comments in source code
+code shows how it is done
+use the comments to share why something is done
+
+read mythical man month 
