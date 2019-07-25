@@ -1,3 +1,5 @@
+Chapter 1 - Pragmatic Philosophy
+
 ###################################
 what makes a pragmatic programmer?
 ###################################
@@ -274,4 +276,63 @@ it's easy to produce good looking documentation from the comments in source code
 code shows how it is done
 use the comments to share why something is done
 
-read mythical man month 
+Chapter 2 - Pragmatic Approach
+
+#########################
+topic 8 - the essence of good design 
+#########################
+
+#########################
+topic 9 - DRY 
+#########################
+do not duplicate knowledge throughout your systems
+
+#########################
+topic 10 - orthogonality 
+#########################
+do not split any one piece of knowledge across multiple system components
+
+#########################
+topic 11 - reversibility 
+#########################
+as the pace of change increases, it becomes harder and harder to keep our applications relevant 
+techniques to help insulate projects from their changing environments
+
+#########################
+topic 12 - tracer bullets 
+#########################
+style of development that allows you to gather requirements, test design, and implement code at the same time
+it's the only way to keep up with the pace of modern life
+
+#########################
+topic 13 - prototypes and post it notes 
+#########################
+use prototyping to test architectures, algorithms, interfaces, and ideas
+it is critical to test ideas and get feedback before you commit to them
+
+#########################
+topic 14 - domain languages 
+#########################
+
+#########################
+topic 15 - estimating 
+#########################
+world of limited time + resources
+keep boss + clients happier if you get good at working out how long things will take
+
+######
+tip 14 - good design is easier to change than bad design 
+######
+a thing is well designed if it adapts to the people who use it
+for code, that means it must adapt by changing
+ETC principle = easier to change
+
+why is decoupling good? 
+because by isolating concerns we make each easier to change
+
+why is the single responsibility principle good?
+because a change of requirements is mirrored by a change in just one module
+
+why is naming important?
+because good code names makes code easier to read
+easier to read = easier to change
