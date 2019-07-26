@@ -281,11 +281,49 @@ Chapter 2 - Pragmatic Approach
 #########################
 topic 8 - the essence of good design 
 #########################
+######
+tip 14 - good design is easier to change than bad design 
+######
+a thing is well designed if it adapts to the people who use it
+for code, that means it must adapt by changing
+ETC principle = easier to change
+
+why is decoupling good? 
+because by isolating concerns we make each easier to change
+
+why is the single responsibility principle good?
+because a change of requirements is mirrored by a change in just one module
+
+why is naming important?
+because good code names makes code easier to read
+easier to read = easier to change
+
+ETC is a value, not a rule
+ask yourself consistently "did I just make the overall system easier or harder to change?"
+
+try to make what you write replaceable
+that way whatever happens in the future, this chunk of code won't be a roadblock
+it's all about keeping code decoupled and cohesive 
+
+not sure how things will change?
+make a note of the choices you have
+make a note of guesses of how things will change
+later look back and review
+
+challenge
+think about languages and programming paradigms (OOP, functional)
+do any have real big positives or negatives when it comes to writing ETC code?
+Python = readable = easy to understand = easy to change
+
+what about functional programming?
 
 #########################
 topic 9 - DRY 
 #########################
 do not duplicate knowledge throughout your systems
+
+requirements are always changing
+we spend most of our time in maintaince mode, reorganizing and re-expressing the knowledge in our system
 
 #########################
 topic 10 - orthogonality 
@@ -320,19 +358,5 @@ topic 15 - estimating
 world of limited time + resources
 keep boss + clients happier if you get good at working out how long things will take
 
-######
-tip 14 - good design is easier to change than bad design 
-######
-a thing is well designed if it adapts to the people who use it
-for code, that means it must adapt by changing
-ETC principle = easier to change
 
-why is decoupling good? 
-because by isolating concerns we make each easier to change
 
-why is the single responsibility principle good?
-because a change of requirements is mirrored by a change in just one module
-
-why is naming important?
-because good code names makes code easier to read
-easier to read = easier to change
