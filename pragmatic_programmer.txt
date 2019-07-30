@@ -325,10 +325,27 @@ do not duplicate knowledge throughout your systems
 requirements are always changing
 we spend most of our time in maintaince mode, reorganizing and re-expressing the knowledge in our system
 
+the alternative is having the same thing expressed in 2+ places
+
+rather than writing code that represents external data in a fixed structure, just stick it into a key/value data structure
+avoids breaking changes
+later validate the map contains the data you need in order to proceed 
+
 #########################
 topic 10 - orthogonality 
 #########################
-do not split any one piece of knowledge across multiple system components
+orthogonality in computing = decoupling 
+2+ things are orthogonal if changes in 1 system do not affect any others
+
+when components of a system are highly independent, there is no such thing as a local fix
+
+we want to design components that are
+- self-contained
+- independent
+- with a single, well-defined purpose
+
+increase productivity
+
 
 #########################
 topic 11 - reversibility 
