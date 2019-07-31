@@ -345,6 +345,29 @@ we want to design components that are
 - with a single, well-defined purpose
 
 increase productivity
+changes localized > development time + testing time reduced
+
+promotes reuse
+if components have specific, well-defined responsibilities, they can be combined with new components
+regardless if originally envisioned those components interacting
+
+reduce risk
+easier to slice out broken components + replace 
+make small changes to one area > should only affect that small area = not cascading failures
+better tested = easier to run tests on small components
+you will not be as tightly coupled to a third party vendor bc interfaces are isolated to small components 
+can swap out later on if things change
+
+design
+once you have components mapped out ask yourself
+"if I dramatically change the requirements behind a particular function, how many modules are affected?"
+the answer should be 1 
+
+how decoupled are you from changes made in the real world?
+are you using a telephone # as user ID?
+what if telephone company changes area codes?
+don't rely on properties of things you cannot control
+
 
 
 #########################
