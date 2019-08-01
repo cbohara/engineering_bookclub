@@ -368,7 +368,23 @@ are you using a telephone # as user ID?
 what if telephone company changes area codes?
 don't rely on properties of things you cannot control
 
+coding
+keep your code decoupled
+write shy code
+- modules that do not reveal anything unnecessary to other modules
+- modules that do not rely on other module's implementations
+if you need to change an object's state, get the object to do it for you
 
+avoid global data
+every time your code references global data it ties itself into other components that share that data
+solution = explicitly pass any required context into your modules
+
+testing
+writing good unit tests > modular code 
+when bug fixing ask yourself how localized the fix is
+when you make a fix, do other problems arise?
+tag bug fixes when you check in code after testing
+you can then run monthly reports analyzing trends in the number of source files affected by each bug fix
 
 #########################
 topic 11 - reversibility 
