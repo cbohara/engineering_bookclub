@@ -1,4 +1,6 @@
+################################
 Chapter 1 - Pragmatic Philosophy
+################################
 
 ###################################
 what makes a pragmatic programmer?
@@ -24,23 +26,23 @@ gives you the stamina to keep at it
 you try hard to be familiar with a broad range of technologies and environments
 you work to keep aware of new developments 
 
-######
-tip 1 - care about your craft 
-######
+
+care about your craft 
+
 there is no point about developing software unless you care about doing it well
 
-######
-tip 2 - think about your work
-######
+
+think about your work
+
 ongoing critical appraisal
 never run on autopilot
 
 #########################
 topic 1 - it's your life
 #########################
-######
-tip 3 - take agency
-######
+
+take agency
+
 does your work environment suck?
 try to fix it, but not forever
 
@@ -64,9 +66,8 @@ if you make mistakes admit it honestly and try to offer options
 
 don't blame or make up excuses 
 
-######
-tip 4 - provide options, don't make lame excuses
-######
+provide options, don't make lame excuses
+
 before you approach anyone to tell them why something cannot be done, is late, is broken > stop + write it down
 does your excuse sound reasonable or stupid?
 how would it sound to your boss?
@@ -87,9 +88,9 @@ it's ok to admit you don't know AND take responsibility for learning more
 #########################
 topic 3 - software entropy
 #########################
-######
-tip 5 - don't live with broken windows
-######
+
+don't live with broken windows
+
 don't leave "broken windows" (bad design, wrong decisions, poor code) unrepaired
 fix it if you have time
 if you do not have time, at least board it up
@@ -104,11 +105,10 @@ topic 4 - stone soup + boiled frogs
 good idea to create a MVP to share 
 ppl tend to join an ongoing success vs a theoretical idea
 
-######
-tip 6 - be a catalyst of change
-######
-tip 7 - remember the big picture 
-######
+
+be a catalyst of change
+
+remember the big picture 
 
 #########################
 topic 5 - good enough software
@@ -116,9 +116,9 @@ topic 5 - good enough software
 allow users to determine if you've built software that is good enough for their needs
 know when to stop and move on
 
-######
-tip 8 - make quality a requirements issue
-######
+
+make quality a requirements issue
+
 often tradeoffs are involved when specifying requirements
 many users would prefer to use software with rough edges today vs wait a year for the polished version
 especially given what they may need something totally different in a year from now
@@ -152,9 +152,8 @@ but the payoff can be just as rewarding
 
 5. review and rebalance
 
-######
-tip 9 - invest regularly in your knowledge portfolio
-######
+invest regularly in your knowledge portfolio
+
 1. learn at least one new programming language every year
 different languages solve the same problems in different ways
 learning diff approaches > broaden thinking + avoid getting stuck in a rut
@@ -189,9 +188,8 @@ take it as a personal challenge to find the answer
 if you can't find the answer yourself, find other people who do know the answer
 talk to other people about the problem + build your network
 
-######
-tip 10 - critically analyze what you read and hear 
-######
+critically analyze what you read and hear 
+
 critical thinking 
 think critically about what you learn
 ensure your knowledge is accurate
@@ -221,9 +219,9 @@ topic 7 - communicate
 #########################
 a good idea is useless without effective communication
 treat english like you would write code = DRY, ETC, automation
-######
-tip 11 - English is just another programming language 
-######
+
+English is just another programming language 
+
 know your audience
 
 gather feedback 
@@ -258,9 +256,8 @@ always respond to people even if it is to say "I'll get back to you later"
 keeping people informed makes them far more forgiving of the occassional slip
 makes them feel like you haven't forgotten them
 
-######
-tip 12 it's both what you say and the way you say it 
-######
+it's both what you say and the way you say it 
+
 the more effective your communication, the more influential you become
 be mindful - email + slack is documentation that lasts forever 
 
@@ -269,21 +266,21 @@ its an integral part of the development process
 it can make it easier by not duplicating efforts or wasting time
 keep the documentation close to the code 
 
-######
-tip 13 build documentation in, don't bolt it on
-######
+build documentation in, don't bolt it on
+
 it's easy to produce good looking documentation from the comments in source code
 code shows how it is done
 use the comments to share why something is done
 
+################################
 Chapter 2 - Pragmatic Approach
+################################
 
 #########################
 topic 8 - the essence of good design 
 #########################
-######
-tip 14 - good design is easier to change than bad design 
-######
+good design is easier to change than bad design 
+
 a thing is well designed if it adapts to the people who use it
 for code, that means it must adapt by changing
 ETC principle = easier to change
@@ -392,11 +389,38 @@ topic 11 - reversibility
 as the pace of change increases, it becomes harder and harder to keep our applications relevant 
 techniques to help insulate projects from their changing environments
 
+engineers prefer simple, singular solutions to problems
+however everything always changes
+
+the goal is to produce flexible, adaptable software
+requirements, users, and hardware change faster than we can get the software developed
+
+ex: supposed you decide to use relational database from vendor A
+after performance testing you realize the document database from vendor B is faster
+if you really abstracted the idea of the database out - to the point where it simply provides persistence as a service - then you have the flexibility to change horses midstream
+
+the mistake lies in assuming that any decision is permenant
+
+there are no final decisions
+flexible architecture
+not only made code flexible
+also think about maintaining flexibility in the areas of architecture, deployment, and vendor integrations
+
+how many possible futures can your code support?
+
+what you can do to make it easy to change
+hide third-party APIs behind your own abstraction layers
+break code into components
+
+forgo following fads
+
 #########################
 topic 12 - tracer bullets 
 #########################
 style of development that allows you to gather requirements, test design, and implement code at the same time
 it's the only way to keep up with the pace of modern life
+
+illustrate the need for immediate feedback under actual conditions with a moving goal
 
 #########################
 topic 13 - prototypes and post it notes 
@@ -413,6 +437,5 @@ topic 15 - estimating
 #########################
 world of limited time + resources
 keep boss + clients happier if you get good at working out how long things will take
-
 
 
