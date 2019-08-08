@@ -26,11 +26,9 @@ gives you the stamina to keep at it
 you try hard to be familiar with a broad range of technologies and environments
 you work to keep aware of new developments 
 
-
 care about your craft 
 
 there is no point about developing software unless you care about doing it well
-
 
 think about your work
 
@@ -115,7 +113,6 @@ topic 5 - good enough software
 #########################
 allow users to determine if you've built software that is good enough for their needs
 know when to stop and move on
-
 
 make quality a requirements issue
 
@@ -455,6 +452,11 @@ advantages
 users get to contribute as the project progresses = increase their buy-in
 they will let you know how close to the target you are
 
+business users have a vague idea of what they want to achieve
+but they neither know nor care about the details
+that's part of our value as software engineers - we intuit intent and convert it to code
+it's better to provide working code + get feedback ASAP
+
 2. developers build a structure to work in
 the most daunting piece of paper is the one with nothing written on it
 get the most basic end-to-end path built ASAP
@@ -497,13 +499,57 @@ completeness = preselected single functionality
 robustness = no need to test
 style = no docs or comments
 
+prototypes are constructed to model the entire system under consideration
+none of the individual modules need to be particularly functional
+
+specific areas you may want to look for in architectural prototype
+1. are the responsibilities of the major components well defined + appropriate?
+2. are the collaborations between the major components well defined?
+3. is coupling minimized?
+4. can you ID potential sources of duplication?
+5. are interface definitions + constraints acceptable?
+6. does every module have an access path to the data it needs during execution?  do it have access when it needs it? 
+this last question tends to generate the most surprises + most valuable results from prototyping
+
+how not to prototype
+before you start, make sure ppl know you are writing disposable code
+if you worry ppl will mistake the purpose of prototyping, go with tracer bullet approach instead
+
 #########################
 topic 14 - domain languages 
 #########################
+computer languages influence how you think about a problem
+how you think about communicating 
 
 #########################
 topic 15 - estimating 
 #########################
 world of limited time + resources
 keep boss + clients happier if you get good at working out how long things will take
+
+how long would it take to send 75TB over a 1Gbps network?
+how much storage would you need for a million names + addresses?
+how long does it take to compress 100Mb of text?
+
+they can be answered as long as you are comfortable with estimating
+in the process of producing the estimate, you'll come to understand more about the world your programs inhabit
+
+estimate to avoid surprises
+
+a basic estimating trick - ask someone who's already done it
+see how others have solved a similar problem
+draw on other people's experiences
+give you a better sense of how long things will take
+
+understand what's being asked
+you need to grasp the scope of the domain
+
+project scope
+part of the project planning that involves determining + documenting 
+specific project goals, deliverables, features, functions, tasks, deadlines, + costs
+
+domain = application domain = sphere of knowledge
+
+need to get in the habit of thinking about the scope of the project before starting to guess
+
 
