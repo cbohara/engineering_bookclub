@@ -420,13 +420,82 @@ topic 12 - tracer bullets
 style of development that allows you to gather requirements, test design, and implement code at the same time
 it's the only way to keep up with the pace of modern life
 
-illustrate the need for immediate feedback under actual conditions with a moving goal
+shooters have tracer bullets to visualize where their bullets have landed
+there is a need for immediate feedback under actual conditions with a moving goal
+especially when building something that hasn't been built before
+you are trying to hit a target in the dark
+
+because your users haven't usea  system like this before, their requirements will be vague
+because you may be using unfmiliar algos, tools, techniques, library = lots of unknowns
+because these projects take tiem to complete, guarantee the environment will change before you're done
+
+code that glows in the dark
+tracer bullets work bc they operate in the same env and under same constraints as real bullets
+they get to the target fast > immediate feedback
+relatively cheap
+
+looking for something that gets us from a requirement > some aspect of the final system quickly, visibly, and repeatably
+
+look at important requirements (the ones that define the system)
+look at areas when you have doubts 
+look at areas wheere you see the biggest risks
+then prioritize your development so these are the first areas you code
+
+tracer code is not disposible
+it contains all the error checking, structuring, docs, self-checking as prod code
+it simply is not fully functional
+once you have achieved an end-to-end connection amongst the components of your system, you can check how close to the target you are
+adjust as necessary
+once you are on target, adding functionality is easy
+
+incremental approach
+
+advantages
+1. user gets to see something working early
+users get to contribute as the project progresses = increase their buy-in
+they will let you know how close to the target you are
+
+2. developers build a structure to work in
+the most daunting piece of paper is the one with nothing written on it
+get the most basic end-to-end path built ASAP
+
+3. you have an integration platform
+easy to integrate new pieces of code that have been unit tested
+
+4. you have something to demonstrate
+
+5. you have a better feel for progress
+tackle use cases 1-by-1
+when one is done, move on to the next
+far easier to measure performance + demonstrate progress to your user
+avoid creating monolithic blocks of code that are reported as 95% complete week after week
+
+tracer bullets don't always hit their target
+don't be surprised if your first couple of attempts miss
+user says "that's not what I meant" 
+or data you need isn't avaialble when you need it 
+or performance problems seem likely
 
 #########################
 topic 13 - prototypes and post it notes 
 #########################
 use prototyping to test architectures, algorithms, interfaces, and ideas
 it is critical to test ideas and get feedback before you commit to them
+
+prototyping is different
+you are aiming to explore specific aspects of the final system
+you throw away whatever you put together 
+use lessons learned to recode it properly
+
+prototypes + post-it notes
+post it notes are great for prototyping workflows + app logic
+UI = drawing on whiteboard
+
+what details can you ignore?
+correctness = use dummy data
+completeness = preselected single functionality
+robustness = no need to test
+style = no docs or comments
 
 #########################
 topic 14 - domain languages 
@@ -437,5 +506,4 @@ topic 15 - estimating
 #########################
 world of limited time + resources
 keep boss + clients happier if you get good at working out how long things will take
-
 
