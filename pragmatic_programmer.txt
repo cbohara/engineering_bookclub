@@ -527,6 +527,7 @@ topic 15 - estimating
 world of limited time + resources
 keep boss + clients happier if you get good at working out how long things will take
 
+****** find out ********
 how long would it take to send 75TB over a 1Gbps network?
 how much storage would you need for a million names + addresses?
 how long does it take to compress 100Mb of text?
@@ -552,4 +553,47 @@ domain = application domain = sphere of knowledge
 
 need to get in the habit of thinking about the scope of the project before starting to guess
 
+build a model of the system
+from your understanding of the question being asked
+build a rough-and-ready bare-bones mental model
+can be creative + useful in the long-term
+ex: you asked for an estimate to do X. however, Y a variant of X could be done in half the time, and you lose only 1 feature
 
+break the model into components
+identify parameters
+give each parameter a value
+
+calculate the answers
+only in the simplest of cases will an estimate have a single answer
+run multiple calculations, varying the values of the critical parameters, until you work out which ones really drive the model
+ex: the response time is roughly 3/4 second if the system have SSDs and 32GB of memory, and 1 sec with 16GB memory
+
+keep track of your estimating prowess
+****keep a record of your estimates****
+later evaluate how close you were
+if your estimate is wrong, find out why it differed from your guess
+
+estimating project schedules
+unless you are doing an app similar to a previous one, with the same team and same tech, you are just guessing
+
+so what do you do?
+practice incremental development
+complete the coding + testing of initial functionality = first iteration
+
+for each iteration
+- check requirements
+- analyze risk
+- design, implement, integrate
+- validate with the users
+
+based on that experience > refine your initial guess on the # of iterations + what is included in each
+
+iterate the schedule with the code
+this is not popular with management who typically want a single, hard-and-fast number before a project even starts
+you'll have to help them understand that the team, their productivity, and the environment will determine the schedule
+redefining the schedule after each iteration > more accurate estimates
+
+what to say when asked for an estimate
+"I'll get back to you"
+you almost always get better results if you slow the process down + spend some time to plan
+estimates given without thought will come back to haunt you
