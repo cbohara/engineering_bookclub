@@ -597,3 +597,46 @@ what to say when asked for an estimate
 "I'll get back to you"
 you almost always get better results if you slow the process down + spend some time to plan
 estimates given without thought will come back to haunt you
+
+################################
+Chapter 3 - The Basic Tools 
+################################
+always be on the lookout for better ways of doing things
+
+#########################
+topic 16 - the power of plain text 
+#########################
+our base material is knowledge
+best wayto store knowledge persistently = plain test
+
+human-readable forms of data + self-describing data will outlive all other forms of data + the apps that created them
+
+Unix philosophy
+small, sharp tools
+each indended to do 1 thing well
+enabled by using a common underlying format = line-oriented plain text file
+
+
+#########################
+topic 17 - shell games
+#########################
+
+#########################
+topic 18 - power editing 
+#########################
+
+#########################
+topic 19 - version control 
+#########################
+
+#########################
+topic 20 - debugging 
+#########################
+
+#########################
+topic 21 - text manipulation 
+#########################
+
+#########################
+topic 22 - engineering daybooks
+#########################
