@@ -609,6 +609,8 @@ topic 16 - the power of plain text
 our base material is knowledge
 best wayto store knowledge persistently = plain test
 
+plain text doesn't have to be unstructured
+
 human-readable forms of data + self-describing data will outlive all other forms of data + the apps that created them
 
 Unix philosophy
@@ -616,18 +618,24 @@ small, sharp tools
 each indended to do 1 thing well
 enabled by using a common underlying format = line-oriented plain text file
 
+challenge
+design a small address book database using straightforward binary representation in Python
+translate that format into plain text format using XML
 
 #########################
 topic 17 - shell games
 #########################
+use the power of command shells
 
 #########################
 topic 18 - power editing 
 #########################
+stick with vim :) 
 
 #########################
 topic 19 - version control 
 #########################
+always use version control
 
 #########################
 topic 20 - debugging 
