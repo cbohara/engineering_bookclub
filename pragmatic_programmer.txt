@@ -661,3 +661,86 @@ topic 22 - engineering daybooks
 #########################
 take notes about your day
 jot down ideas and reflections so you don't forget
+
+################################
+Chapter 4 - Pragmatic Paranoia
+################################
+just like defensive driving, practice defensive coding
+if there is any doubt, validate all info given
+use assertions to detect bad data
+distrust data from potential attackers
+check for consistency, put constraints on DB
+
+you can't write perfect software
+buld in defenses against your own mistakes
+
+#########################
+topic 23 - design by contract
+#########################
+clients + suppliers must agree on rights + responsibilities in a contract
+
+what is a correct program?
+one that does no more and no less than it claims to do
+documenting + verifying that claim = design by contract
+
+every function + method in a software system does something
+before it does something, the function may have expectations of the state of the world
+and it may be able to make a statement about the state of the world when it concludes 
+
+preconditions
+what must be true in order for the routine to be called
+a routine should never get called when its preconditions would be violated
+it is the caller's responsibility to pass good data
+ex: sqrt function has a precondition - its argument must not be negative
+if a user enters a negative number, it's up to the calling code to ensure it doesn't pass the negative number to the sqrt function
+calling code should terminate, or issue a warning and retry
+whatever it's choice, it is definitely not the sqrt's problem
+need to handle the exception in the calling function
+by expressing the domain of the sqrt function in the precondition of the sqrt function, you shift the burden of correctness to the caller
+
+postconditions
+what the routine is quaranteed to do
+the state of the world when the routine is done
+
+class invariants
+invariant = never vary
+logical assertion that is always held true during a certain phase of execution
+use assertions to make invariants explicit
+some OOP have special syntax for specifying class invariants = constrain objects of a class
+methods of the class should preserve the invariant
+class invariant constrains the state stored in the object
+
+the contract 
+if all the routine's preconditions are met by the caller,
+the routine shall guarantee that all postconditions are true when it completes
+the routine shall guarantee that all class invariants are true when it completes
+
+if either party fails to live up to the terms of the contract, then an agreed upon remedy is invoked
+raise an exception, program terminates
+
+failure to live up to the contract is a bug
+it is not something that should ever happen
+
+
+
+#########################
+topic 24 - dead programs tell no lie 
+#########################
+do no damage while working bugs out
+check things often + terminate the program if things go awry
+
+#########################
+topic 25 - assertive programming 
+#########################
+write code that actively verifies your assumptions
+
+#########################
+topic 26 - how to balance resources 
+#########################
+as programs get more dynamic, you'll find yourself juggling system resources (memory, files, etc)
+
+#########################
+topic 27 - don't outrun the headlights
+#########################
+stick with small steps
+
