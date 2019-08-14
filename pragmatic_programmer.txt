@@ -640,11 +640,24 @@ always use version control
 #########################
 topic 20 - debugging 
 #########################
+use binary "chop" aka binary search when trying to find the data that is causing your program to fail
+
+do you know this bug could arise elsewhere?  fix it right away
+
+what could you do to find the bug?  better log parsing system?
+
+debugging checklist
+is the program being reported a direct result of the underlying bug, or just a symptom?
+assume the bug is in your code - not the OS or framework
+rubber duck it
 
 #########################
 topic 21 - text manipulation 
 #########################
+take advantage of Python scripts to automate all the things
 
 #########################
 topic 22 - engineering daybooks
 #########################
+take notes about your day
+jot down ideas and reflections so you don't forget
