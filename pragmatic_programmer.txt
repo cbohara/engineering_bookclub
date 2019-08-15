@@ -721,7 +721,33 @@ raise an exception, program terminates
 failure to live up to the contract is a bug
 it is not something that should ever happen
 
+DBC and TDD
+Both serve their usecases but are not mututually exclusive
+TDD is great but it might invite you to concentrate on the happy path, not real world full of bad data
 
+Advantages of DBC
+- doesn't require any setup or mocking
+- defines the parameters for success or failure in ALL cases (vs tests for specific cases)
+- TDD only happens at test time in build cycle vs DBC required for code to execute
+- TDD does not focus on checking internal invariants 
+- DBC is more efficient + DRYer
+
+emphasis is on lazy code
+be strict in what you accept before you begin
+promise as little as possible in return
+
+implementing DBC
+- what the input domain range is
+- what the boundary conditions are
+- what the routine promises to deliver
+- what the route does not promise to deliver
+
+documenting these details before you write code > huge leap forward in writing better software
+add to commments or in unit tests
+
+in some languages DBC is built in 
+when it is not, you can use assertions
+by using assert to validate preconditions, postconditions, + invariants > crash early @ site of problem
 
 #########################
 topic 24 - dead programs tell no lie 
