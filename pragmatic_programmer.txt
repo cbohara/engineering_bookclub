@@ -755,10 +755,49 @@ topic 24 - dead programs tell no lie
 do no damage while working bugs out
 check things often + terminate the program if things go awry
 
+coding defensively
+making sure the data is what we think it is
+making sure the code in prod is the code we think it is
+making sure the correct versions of dependencies were actually loaded
+
+all errors give you info
+read the damn error message
+
+some developers think it is good style to catch or rescue all exceptions
+re-raising them after writing some kind of log message
+this is not advised 
+
+why?
+the app code isn't eclipsed by the error handling
+
+the code is less coupled
+what if the function defining the exception is updated?
+then the code executing the function and trying to handle all the exceptions is out of date
+
+preferred to allow the exception to be automatically propogated
+
+crash early
+crashing your program is the best thing you can do
+when your code discovers something that was supposed to be impossible just happened, your program is no longer viable
+anything it does from this point forward become suspect
+terminate it as soon as possible
+
 #########################
 topic 25 - assertive programming 
 #########################
 write code that actively verifies your assumptions
+
+anything you think "but of course that could never happen" add code to chec k it
+
+assertions + side effects
+be careful of adding assertions > new errors
+
+never put code that must be executed into an assert
+
+don't use assertions in place of real error handling
+assertions check for things that should never happen
+
+leave assertions turned on
 
 #########################
 topic 26 - how to balance resources 
