@@ -797,12 +797,49 @@ never put code that must be executed into an assert
 don't use assertions in place of real error handling
 assertions check for things that should never happen
 
+common misunderstanding
+assertions add overhead to code
+once the code has been tested and shipped, they are no longer needed
+assume testing finds all bugs
+
 leave assertions turned on
+turning off assertions for prod is like crossing a high wire without a net because you made it across once in practice
+
+assertions used in production > win big money
+assertions were well crafted to report all the pertinent data leading to the failure
+presented via nice looking UI to the end user
+this level of feedback from real users under real conditions >
+plug holes + fix obscure, hard to reproduce bugs
+resulted in very stable, bullet-proof software > bought for 100s of millions of dollars
 
 #########################
 topic 26 - how to balance resources 
 #########################
 as programs get more dynamic, you'll find yourself juggling system resources (memory, files, etc)
+
+a function/object that allocates a resource should be responsible for deallocating
+in python use with blocks
+
+when in doubt, it always pays to reduce scope
+
+keep in mind resources left behind
+i.e. how are your logging files handled? automate expiration? 
+
+deallocate resources in the opposite order that you allocate them
+that way you don't orphan resources if 1 resource contains a reference to another
+
+when allocating the same set of resources in different places in your code, always allocate them in the same order
+this will reduce the possibility of a deadlock
+
+use finally caluse in try...catch block 
+ensures resources are cleaned up if exception is thrown
+
+thing = allocate_resource()
+being
+	process(thing)
+finally
+	deallocate(thing)
+end
 
 #########################
 topic 27 - don't outrun the headlights
