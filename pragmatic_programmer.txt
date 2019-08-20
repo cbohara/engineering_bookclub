@@ -846,3 +846,67 @@ topic 27 - don't outrun the headlights
 #########################
 stick with small steps
 
+always take small, deliberate steps
+checking for feedback and adjusting before proceeding
+
+consider the rate of feedback as your speed limit
+
+what is feedback?
+results in a REPL
+unit tests
+user demo + feedback
+
+what task is too big? 
+any task that requires fortune telling
+
+fortune telling
+est. completion dates month in the future
+plan a design for future maintainance or extendability
+guess users' future needs
+
+instead of wasting effort designing for an uncertain future, you can always fall back on designing your code to be replaceable
+make it easy to throw your code out + replace it with something better
+making code replaceable also helps with cohension, coupling, and DRY
+
+################################
+Chapter 5 - bend, or break 
+################################
+how to make reversible decisions
+allow code to stay flexible + adaptable in the face of uncertainty
+
+#########################
+topic 28 - decoupling 
+#########################
+coupling = dependencies among modules of code
+keep concepts sep + decrease coupling
+
+coupling is the enemy of change
+links together things that must change in parallel
+
+decoupled code is easier to change 
+
+things to look out for
+simple changes > break stuff elsewhere in the system
+afraid to change code bc not sure what might be affects
+mtgs everyone has to attend bc no one is sure what will be affected by the change
+
+#########################
+topic 29 - juggling the real world 
+#########################
+4 strategies to help manage + react to events
+
+#########################
+topic 30 - transforming programming 
+#########################
+traditional procedural + OOP might be too tightly coupled
+function pipelines = more flexible + clearer style 
+
+#########################
+topic 31 - inheritance tax 
+#########################
+
+#########################
+topic 32 - configuration 
+#########################
+write less code
+move details out of code completely
