@@ -890,6 +890,26 @@ simple changes > break stuff elsewhere in the system
 afraid to change code bc not sure what might be affects
 mtgs everyone has to attend bc no one is sure what will be affected by the change
 
+tell don't ask
+don't make decisions based on the internal state of an object + then update that object
+avoid chaining method calls
+
+avoid globally accessible data
+change in the implmentation of the global > impact on many pieces of code
+you'll see this problem when writing unit tests for code that uses global data
+
+any mutable external resource = global data
+if your app uses a database, file system, service API, etc it risks the globalization trap
+make sure to always wrap these resources behind code that you control
+
+if it is important enough to be global, wrap it in an API
+
+coupled code is hard to change
+alterations in 1 place > secondary effects elsewhere
+
+keep your code shy
+only deal with things it directly knows about
+
 #########################
 topic 29 - juggling the real world 
 #########################
