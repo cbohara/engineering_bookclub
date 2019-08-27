@@ -958,10 +958,28 @@ function pipelines = more flexible + clearer style
 
 programming is about code, but programs are about data
 things are much simplified when you simply think of input and output of a function
+chain together those transformations
+think of data as a flow
+
+prefer to return an object and then pass it into the next function vs chaining
+
+prefer this style
+input_file = open(file_name)
+lines = find_matching_line(input_file, pattern)
+result = truncate_lines(lines)
+
+avoid this style
+* this is interesting because this is the style used in Spark programming
+result = open(file_name).find_matching_lines(pattern).truncate_lines()
 
 #########################
 topic 31 - inheritance tax 
 #########################
+avoid using inheritance in OOP
+inheritance = coupling
+
+interfaces and protocols
+
 
 #########################
 topic 32 - configuration 
