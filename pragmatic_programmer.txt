@@ -928,14 +928,36 @@ for each of those events, we define the new current state of the system
 * look for an example of a finite state machine with python
 
 2. the observer pattern
+source of events = observable 
+list of clients who are interested in the events = observers
+
+observer registers its interest with the observable
+when the event occurs, the observable iterates down its list of observers + callls the function that each passed it
+
 3. publish/subscribe
+generalizes the observer pattern
+at the same time solving the problems of coupling + performance
+
+publishers + subscribers are connected via channels
+channels are implemented in a sep body of code - library, process, distributed infrastructure (ie kafka)
+all the implementation detail is hidden from your code
+
+every channel has a name
+subscribers register interest in 1+ channels
+publishers write events to them
+bc all communication is handled outside your code > can be asynchronous
+
 4. reactive programming + streams
+streams let us treat events as if they were a collection of data
 
 #########################
 topic 30 - transforming programming 
 #########################
 traditional procedural + OOP might be too tightly coupled
 function pipelines = more flexible + clearer style 
+
+programming is about code, but programs are about data
+things are much simplified when you simply think of input and output of a function
 
 #########################
 topic 31 - inheritance tax 
