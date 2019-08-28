@@ -978,11 +978,51 @@ topic 31 - inheritance tax
 avoid using inheritance in OOP
 inheritance = coupling
 
-interfaces and protocols
+interfaces
+most OO languages allow you to specify that a class implements 1+ sets of behaviors = interfaces
 
+ex:
+public interface Drivable {
+	double getSpeed();
+	void stop();
+}
+
+interfaces create no code
+they simply say that any class that implements the interface must implement the methods getSpeed and stop
+
+interfaces give us polymorphism without inheritance
+
+inheritance encourages developers to create classes whose objects have large numbers of methods
+if a parent class has 20 methods and the subclass just needs 2, its objects will still have another 18 just lying around and callable
+the class has lost control of its interface 
+keep coupling
+
+delegate to services: has-a trumps is-a
+use interfaces 
+
+use mixins to share functionality
+ability to extend classes + objects with new functionality w/o using inheritance
+create a set of functions, give them a name, and then somehow extend a class or object with them
 
 #########################
 topic 32 - configuration 
 #########################
 write less code
 move details out of code completely
+
+parameterize your app using external configs
+the config is read by your app as a data structure when the app starts
+
+configuration as a service
+while static configs are common, there is a diff approach
+keep it stored behind a service API
+
+why?
+multiple apps can share the config info
+config changes can be made globally
+config data can be maintained via specialized UI
+config data becomes dynamic
+
+dynamic config benefits:
+don't have to stop + restart an app to change a single param
+
