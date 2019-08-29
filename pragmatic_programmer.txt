@@ -1023,6 +1023,5 @@ config changes can be made globally
 config data can be maintained via specialized UI
 config data becomes dynamic
 
-dynamic config benefits:
+dynamic config benefits =
 don't have to stop + restart an app to change a single param
-
