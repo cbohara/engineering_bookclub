@@ -1025,3 +1025,22 @@ config data becomes dynamic
 
 dynamic config benefits =
 don't have to stop + restart an app to change a single param
+
+################################
+Chapter 1 - Concurrency
+################################
+
+concurrency = execution of 2+ pieces of code act as if they run at the same time
+need to run code in an environment that can switch execution between different parts of you code when it is running
+implemented via fibers, threads, and processes
+
+everything is concurrent
+necessary requirement if your app is running in the real world where things are asynchronous
+users interacting, data being fetched, external services being called = all at the same time
+
+parallelism = when 2+ pieces of code actually run at the same time
+need hardware that can do 2 things at once
+multiple cores in a CPU, multiple CPUs in a computer, or multiple computers connected together
+
+
+
