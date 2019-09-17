@@ -1042,6 +1042,32 @@ parallelism = when 2+ pieces of code actually run at the same time
 need hardware that can do 2 things at once
 multiple cores in a CPU, multiple CPUs in a computer, or multiple computers connected together
 
+#########################
+topic 33- breaking temporal coupling
+#########################
+when your code imposese a sequence on things that are not required to solve the problem
+do you depend on tick coming before tock? not if you want to stay flexible
+does your code access 3 backend services sequentially? not if you want to keep your customers
+
+concurrency = things happening at the same time
+ordreing = relative positions of things in time
+
+activity diagram
+capture workflow to understand what can happen at the same time and what must happen in strict order
 
 
+#########################
+topic 34 - shared state is incorrect state 
+#########################
 
+
+#########################
+topic 35 - actors and processes
+#########################
+actor model
+independent processes (which share no data) communicate over channels using defined, simple, semantics
+
+#########################
+topic 36 - blackboards 
+#########################
+act like a combo of an object store + smart publish/subscriber broker
