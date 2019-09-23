@@ -1071,3 +1071,5 @@ independent processes (which share no data) communicate over channels using defi
 topic 36 - blackboards 
 #########################
 act like a combo of an object store + smart publish/subscriber broker
+
+
