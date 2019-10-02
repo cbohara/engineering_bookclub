@@ -1027,7 +1027,7 @@ dynamic config benefits =
 don't have to stop + restart an app to change a single param
 
 ################################
-Chapter 1 - Concurrency
+Chapter 6 - Concurrency
 ################################
 
 concurrency = execution of 2+ pieces of code act as if they run at the same time
@@ -1060,7 +1060,6 @@ capture workflow to understand what can happen at the same time and what must ha
 topic 34 - shared state is incorrect state 
 #########################
 
-
 #########################
 topic 35 - actors and processes
 #########################
@@ -1072,5 +1071,76 @@ topic 36 - blackboards
 #########################
 act like a combo of an object store + smart publish/subscriber broker
 
+################################
+Chapter 8 - Before the Project
+################################
+sort out critical issues before starting 
+better positioned to avoid analysis paralysis
+actually being + complete successful project
 
+#########################
+topic 45 - requirements pit
+#########################
+at the beginning of a project, you and team need to learn requirements
+simply being told what to do  or listening to users is not enough
+avoid common traps + pitfalls
+
+requirements myth
+early days of software = computers cost more per hour vs people cost
+saved $ by trying to get things correct the first time
+part of process = specify exactly what we were going to get the machine to do
+early machines were limited > scope constrained = possible to understand whole problem before you started 
+
+nowadays = messy, conflicted, unknown
+exact specs are rare if not impossible
+
+no one knows exactly what they want
+our job is to help people understand what they want
+its our most valuable attribute
+
+programmers help people understand what they want
+new devs = take statement of need + implement solution for it
+experienced devs = ask many follow up questions
+
+requirements are a process
+requirements are learned in a feedback loop
+your job is to help client understand consequences of stated requirements 
+"is this what you mean?"
+produce mockups + prototypes 
+ideally flexible enough you can change during discussions with clients
+allow clients to respond with "that isn't what I meant" 
+and us to respond "so more like this?"
+
+the entire project = requirements gathering exercise
+prefer short iterations > direct client feedbcak
+
+work with the user to think like the user
+
+requirements vs policy
+when policy changes (and it will) only metadata for the system should need to be updated
+
+policy = metadata
+implement the general case with the policy info as an example of the type of thing the system needs to support
+can easily swap out when policy changes
+
+requirements vs reality
+
+#########################
+topic 46 - solving impossible puzzles
+#########################
+conventional wisdom + constrain management
+whether you are performing requirements, analysis, coding, or testing 
+difficult problems will crop up
+most of the time, they won't be as difficult as they first appear
+
+#########################
+topic 47 - working together 
+#########################
+when the impossible project comes up
+solve problems together WHILE CODING
+not in heavy duty requirements doc, emails, mtgs
+
+#########################
+topic 48 - essence of ability
+#########################
 
