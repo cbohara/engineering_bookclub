@@ -1144,3 +1144,21 @@ not in heavy duty requirements doc, emails, mtgs
 topic 48 - essence of ability
 #########################
 
+################################
+Chapter 10 - Postface
+################################
+"We developers are incredibly priviledged.  We are truly building the future.  It's an extraordinary amount of power. And with that power comes an extraordinary responsibility."
+
+in the case of Life360, our app has the power to save someone's life in the case of a true collision 
+
+we have the duty to ask ourselves 2 questions about every piece of code we delivere:
+1. have I protected the user?
+2. would I use this myself?
+
+first, do no harm
+would I be happy to bee a user of this software?
+
+if you enable a scumbag, you are a scumbag
+
+imagine the future you want
+recognize when you're doing something wrong and have the courage to say no
