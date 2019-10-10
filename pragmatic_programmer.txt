@@ -1071,6 +1071,13 @@ topic 36 - blackboards
 #########################
 act like a combo of an object store + smart publish/subscriber broker
 
+
+
+################################
+Chapter 7 - While You Are Coding
+################################
+
+
 ################################
 Chapter 8 - Before the Project
 ################################
@@ -1143,6 +1150,10 @@ not in heavy duty requirements doc, emails, mtgs
 #########################
 topic 48 - essence of ability
 #########################
+
+################################
+Chapter 9 - Pragmatic Projects
+################################
 
 ################################
 Chapter 10 - Postface
