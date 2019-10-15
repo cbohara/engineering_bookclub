@@ -1049,22 +1049,43 @@ when your code imposese a sequence on things that are not required to solve the 
 do you depend on tick coming before tock? not if you want to stay flexible
 does your code access 3 backend services sequentially? not if you want to keep your customers
 
+opportunities for concurrency
 concurrency = things happening at the same time
 ordreing = relative positions of things in time
 
 activity diagram
 capture workflow to understand what can happen at the same time and what must happen in strict order
+set of actions drawn as round boxes
+the arrow leaving an action leads to either another action OR
+to a thick line = synchronization bar
+once all actions leading to the synch bar are complete then proceed along any arrows leaving the bar
+actions with no arrows leading into it can be started at any time
 
+opportunities for parallelism
+i.e. Spark jobs
 
 #########################
 topic 34 - shared state is incorrect state 
 #########################
+any time 2+ chunks of code hold referencese to the same piece of mutable data = shared state
+not just global variables
+
+semaphore = thing that only one person can own at a time
+ex: how to avoid the issue of both waiters selling a single slice of pie at the same time and one customer being disappointed
+put a leprachaun toy on a pie case
+before any waiter can sell a pie, they have to be holding the leprechaun in hand
+once the order is complete = pie delivered to table > return leprechaun to pie case so another waiter can sell pie
+
+in code this appears as lock() and unlock()
+however this delegates responsibility for protecting access to pie case to the people who use it
+better to centralize that control
+make the resource transactional
 
 #########################
 topic 35 - actors and processes
 #########################
 actor model
-independent processes (which share no data) communicate over channels using defined, simple, semantics
+independent processes (which share no data) communicate over channels using definedsimple semantics
 
 #########################
 topic 36 - blackboards 
