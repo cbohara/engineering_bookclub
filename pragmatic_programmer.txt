@@ -1081,17 +1081,29 @@ however this delegates responsibility for protecting access to pie case to the p
 better to centralize that control
 make the resource transactional
 
+any time 2+ insatnces of your code can access some resource at the same time > looking at a potential problem
+
+random failures are often concurrency issues
+
+concurrency in a shared resource environment is difficult
+manaing it yourself is challenging
+avoid doing so if possible 
+use following better solutions
+
 #########################
 topic 35 - actors and processes
 #########################
 actor model
-independent processes (which share no data) communicate over channels using definedsimple semantics
+independent processes (which share no data) communicate over channels using defined simple semantics
+
+use a queue
 
 #########################
 topic 36 - blackboards 
 #########################
 act like a combo of an object store + smart publish/subscriber broker
 
+use blackboards to coordinate workflow
 
 
 ################################
