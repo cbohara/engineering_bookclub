@@ -1105,11 +1105,76 @@ act like a combo of an object store + smart publish/subscriber broker
 
 use blackboards to coordinate workflow
 
+many apps are contructed using small, decoupled services 
+all communicating via some form of messaging system
+ex: kafka
+do more than just send data from A to B
+offer presistence in thee form of an event log + ability to retrieve messages through pattern matching
 
 ################################
 Chapter 7 - While You Are Coding
 ################################
+conventional wisdom = once a project is in the coding phase, the work is mostly mechanical
+simply transcribing design into executable statements
 
+pragramtic programmers disagree
+it's the biggest single reason software projects fail
+and why many systems end up ugly, inefficent, poorly structured, unmaintainable, or just plain wrong
+
+#########################
+topic 37 - listen to your lizard brain
+#########################
+listen to your instincts
+
+if writing code feels like you are trudging through mud, see that as a sign that something is not quite right
+
+give yourself a little time + space to let your brain organize itself
+
+talk it out to your rubber duck 
+
+if you are still stuck, tell your brain that what you are about to do doesn't matter + start prototyping
+it's playtime!
+remind yourself that prototypes are meant to fail
+
+looking at othere people's code
+when you spot something done that seems strange, jot it down
+and notice patterns
+you may learn something along the way
+
+#########################
+topic 38 - programming by coincidence 
+#########################
+
+#########################
+topic 39 - algorithm speed 
+#########################
+how to estimate speed of code
+give tips on how to spot problems before they happen
+
+#########################
+topic 40 - refactoring
+#########################
+always room for improvement
+
+#########################
+topic 41 - test to code
+#########################
+not just about finding bugs
+also about getting feedback on your code
+
+#########################
+topic 42 - property based testing 
+#########################
+how to have the computer do testing for you
+
+#########################
+topic 43 - stay safe out there
+#########################
+basic tips on how to stay safe vs bad actors
+
+#########################
+topic 44 - naming things 
+#########################
 
 ################################
 Chapter 8 - Before the Project
@@ -1134,7 +1199,7 @@ early machines were limited > scope constrained = possible to understand whole p
 nowadays = messy, conflicted, unknown
 exact specs are rare if not impossible
 
-no one knows exactly what they want
+no one knows exactly what they wan
 our job is to help people understand what they want
 its our most valuable attribute
 
