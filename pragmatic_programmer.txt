@@ -1144,12 +1144,21 @@ you may learn something along the way
 #########################
 topic 38 - programming by coincidence 
 #########################
+it seems to work... until it doesn't
+don't assume it, prove it
+are you relying on certain environment setup?
+
+how to program deliberately
+always be aware of what you are doing
+can you explain the code in detail to a more junior developer?
+be careful attempting to build an app or using tech you don't fully understand - if you don't know why it works, you won't know why it fails
+document your assumptions
+test your assumptions (using assertions)
 
 #########################
 topic 39 - algorithm speed 
 #########################
-how to estimate speed of code
-give tips on how to spot problems before they happen
+use Big O notation
 
 #########################
 topic 40 - refactoring
