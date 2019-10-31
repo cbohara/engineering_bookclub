@@ -1164,12 +1164,37 @@ use Big O notation
 topic 40 - refactoring
 #########################
 always room for improvement
+altering internal structuree without changing its external behavior
+need unit tests in order to guarantee external behavior hasn't changed 
+
+why refactor? improve quality
+remove duplication
+reduce nonorthogonal design (interdependent pieces)
+improve performance
+
+fail to refactor now > far greater time investment to fix the problem down the road
+
+refactor early, refactor often
+easier to do when the issue is small
+
+simple tips:
+1. don't try to refactor + add functionality at the same time
+2. make sure you have good tests + run tests often
+3. take short, deliberate steps
 
 #########################
 topic 41 - test to code
 #########################
 not just about finding bugs
-also about getting feedback on your code
+major benefit of testing is having to think about input + expected output
+
+ex: testing a query to a database
+better to pass in an instance of the database connection vs using a global one
+
+testing = vitual feedback that guides your coding
+
+tightly coupled code = hard to test
+forces you to reduce coupling
 
 #########################
 topic 42 - property based testing 
