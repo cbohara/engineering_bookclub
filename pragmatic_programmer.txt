@@ -1196,6 +1196,42 @@ testing = vitual feedback that guides your coding
 tightly coupled code = hard to test
 forces you to reduce coupling
 
+top down vs bottom up vs the way you should do it
+
+top down
+start with overall problem
+break into smaller pieces
+bottom up
+build code like you build a house
+start at the bottom + work your way up
+
+neither school works bc we don't know what we're doing when we start
+top down assume they can express the whole requirement up front
+bottom up don't know where they are heading
+
+build end-to-end
+build small pieces of end-to-end functionality
+learn the problem as you go
+apply this learning as you continue to flesh out the code
+involve the customer at each step + have them guide the process
+
+TDD - you need to know where you're going
+when you can't comprehend the whole problem, take small steps, one test at a time
+be careful to avoid endlessly polishing the easy problems while ignoring the real reason you are coding
+
+unit testing
+regression testing = against results from previous runs of the same test
+
+testing against contract
+write test cases that ensure a given unit honors its contract
+over a wide range of test cases + boundary conditions
+avoid downstream disasters
+
+design to test
+after ad hoc testing (ex: with print statements) formalize as unit test
+log files allow us to test in prod
+
+
 #########################
 topic 42 - property based testing 
 #########################
