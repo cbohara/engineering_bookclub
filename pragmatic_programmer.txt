@@ -1229,13 +1229,31 @@ avoid downstream disasters
 
 design to test
 after ad hoc testing (ex: with print statements) formalize as unit test
+
+build a test window
+inevitable that bugs will show up in prod even with thorough testing
 log files allow us to test in prod
 
+culture of testing
+test your software of your users will
 
 #########################
 topic 42 - property based testing 
 #########################
 how to have the computer do testing for you
+code invariants/properties = things that remain true about some piece of state when passed through a function 
+
+Hypothesis tool = python property based testing framework
+provides all sort of random testing data!
+
+frustration can be pinning down what failed
+so find out what parameters caused the function to fail
+then create a seperate regular unit test for those parameters
+this allows you to focus on the probleme without all the additional calls being made by the framework
+the unit test acts as a regression test
+
+
+
 
 #########################
 topic 43 - stay safe out there
