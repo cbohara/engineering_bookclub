@@ -1252,13 +1252,34 @@ then create a seperate regular unit test for those parameters
 this allows you to focus on the probleme without all the additional calls being made by the framework
 the unit test acts as a regression test
 
-
-
-
 #########################
 topic 43 - stay safe out there
 #########################
 basic tips on how to stay safe vs bad actors
+need to consider how an external actor could deliberately screw up the system
+
+security basic principles
+1. minimize attack surface area
+2. principle of least priviledge
+3. secure defaults
+4. encrypt sensitive data
+5. maintain security updates
+
+code complexity > attack surface larger
+less code = fewer bugs = fewer security holes
+
+never trust data from an external entity
+always sanitize it before passing to a database/other processing
+
+unauthenticated services are asking for trouble
+keep # of auth users to absolute minnimum
+
+do not share output data nor debugging info
+
+always use least amount of priviledge for shortest time you can get away with
+
+encrypt sensitive data
+don't check in secrets, API keys, SSH keys, etc etc
 
 #########################
 topic 44 - naming things 
