@@ -1280,10 +1280,22 @@ always use least amount of priviledge for shortest time you can get away with
 
 encrypt sensitive data
 don't check in secrets, API keys, SSH keys, etc etc
+allow users to make long random passwords that they do not need to change unless there is a valid reason (ex: security breach)
+
+maintain security updates
 
 #########################
 topic 44 - naming things 
 #########################
+constantly clarifying > better understanding of code
+
+honor the culture of a particular language
+
+project glossary
+listing terms that have special meaning
+
+when you see a name that no longer expresses the intent FIX IT
+when you have full regression tests any issues will be spotted
 
 ################################
 Chapter 8 - Before the Project
@@ -1354,13 +1366,63 @@ when the impossible project comes up
 solve problems together WHILE CODING
 not in heavy duty requirements doc, emails, mtgs
 
+tips
+- build the code, not your ego
+- start small
+- criticize the code, not the person
+- listen + try to understand other views
+- conduct freq retrospectives > improve next timee
+
 #########################
-topic 48 - essence of ability
+topic 48 - essence of agility
 #########################
+values
+- individuals + interactions over processes + tools
+- working software over comprehensive documentation
+- customer collaboration over contract negotiation
+- responding to change over following a plan
+
+agile manifesto != static doc
+should be continuous act of uncovering better ways to produce software
+
+it all boils down to how you deal with uncertainty
+do this by gathering + acting on feedback
+
+recipe for working in an agile way:
+1. work out where you are
+2. make the smallest meaningful step towards where you want to be
+3. evaluate where you end up, and fix anything you broke
+
+some of our most successful work happens when we start working on client's reequirements, took a singl estep, and realized that what we weere about to do wasn't necessary
+
+good design produces something easier to change vs bad design
 
 ################################
 Chapter 9 - Pragmatic Projects
 ################################
+#########################
+topic 50 - coconuts don't cut it
+#########################
+help teams work better together
+
+maintain small stable teams
+
+no broken windows
+quality is built in, not bolted on
+
+#########################
+topic 51 - pragmatic starter kit
+#########################
+magic trio = version control, testing, + automation
+
+#########################
+topic 52 - delight your users 
+#########################
+
+#########################
+topic 53 - pride + prejudice
+#########################
+
 
 ################################
 Chapter 10 - Postface
