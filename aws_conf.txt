@@ -1,0 +1,79 @@
+AWS Reinvent Conference 
+
+##############
+Mon 12:15pm
+ANT204-R
+How Amazon leverages AWS to deliver analytics at enterprise scale
+##############
+Project Andes
+Amazon.com analytics transition from Oracle DW > AWS
+
+ELT = pure SQL statements
+(only) had to migrate 1M SQL queries
+didn't have to worry about other programming languages in the ecosystem
+
+limited the scope to only structured data + users can query via SQL
+
+EMR allows you to decouple storage + compute = ideal
+Redshift = still coupled compute + storaged
+however Redshift allows easy querying via SQL
+
+store all data in S3
+add layer (catalogue) on top of S3
+replicate database like experience
+
+allow users ability to transform/join datasets 
+
+synchronized metadata
+built subscription service that would activate ETL based on updates
+
+redshift spectrum = glue + redshift
+
+how to get people off a legacy system on to a new system
+standup replica of the warehouse
+allow users to manage their own migration strategy timeline
+
+schema conversion tool from AWS
+automated query conversion from Oracle to Redshift SQL syntax 
+
+Andes metadata service
+any time data changed > synchronize downstream jobs
+completion service = track if a job is done
+manifests = abstract away file updates to optimize for later reads
+audit logging for changes
+
+subscription service
+contract = publisher determined governance + SLAs
+synchronization = updates data/metadata/schema
+
+synchronizer targets
+1. Redshift
+2. AWS Glue catalog
+fully decoupled storage + compute
+3. Redshift spectrum 
+launched halfway through migration
+turns fully coupled + compute into semi-coupled  
+run query against S3 as if running on local Redshift cluster
+gained significant new functionality with minimal investment
+
+need to be ready when working in the AWS environment to always update technology
+
+Andes user experience
+give full metadata via UI
+provide data completness updates
+provide schema attributes
+enable user to subscribe to a dataset
+
+migration context
+Amazon.com does not stop
+make sure users have necessary training 
+
+running 2 systems in parallel is super expensive
+move users from old system to new system as fast as possible
+
+need to transition 80K users
+over-communicate often
+
+Andes has been taking the full analytics workload for Amazon.com for the past 12 months
+
+leverage data migration service (DMS) + schema conversation tool (SCT)
