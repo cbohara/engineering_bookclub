@@ -1,10 +1,15 @@
 AWS Reinvent Conference 
 
 ##############
-Mon 12:15pm
+MONDAY
+##############
+
+##############
+12:15pm
 ANT204-R
 How Amazon leverages AWS to deliver analytics at enterprise scale
 ##############
+
 Project Andes
 Amazon.com analytics transition from Oracle DW > AWS
 
@@ -77,3 +82,31 @@ over-communicate often
 Andes has been taking the full analytics workload for Amazon.com for the past 12 months
 
 leverage data migration service (DMS) + schema conversation tool (SCT)
+
+
+##############
+2:30pm
+WPT203
+We Power Tech - In Diversity + Inclusion, Details Matter
+##############
+
+data in diversity + inclusion
+ask HR to keep metrics beyond recruitment
+keep metrics at a team level
+
+ex: data around how long a population is at a certain level (1 vs 2 vs senior vs staff)
+how quickly do they rise up the ranks?
+
+rates of women in CS degrees has decreased(?!)
+half of women are likely to leave the field within the first 7 years
+
+bias training is not effective
+you can't change a company culture by doing anything once
+
+what can you do to change things?
+listen to what other people are staying
+apply compassion
+hold people accountable 
+bias interuptor tool for reviews
+https://biasinterrupters.org/toolkits/individualtools/
+sponsors - help individuals grow their career
