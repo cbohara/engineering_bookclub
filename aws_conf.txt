@@ -6,7 +6,7 @@ MONDAY
 
 ##############
 12:15pm
-ANT204-R
+ANT204
 How Amazon leverages AWS to deliver analytics at enterprise scale
 ##############
 
@@ -110,3 +110,67 @@ hold people accountable
 bias interuptor tool for reviews
 https://biasinterrupters.org/toolkits/individualtools/
 sponsors - help individuals grow their career
+
+##############
+TUESDAY
+##############
+
+##############
+11:30am
+ANT205
+What's new with Athena chalktalk
+##############
+
+in preview = can query via RDS + DynamoDB
+
+Athena workgroups
+more data in data lake > better isolate workload
+
+IAM roles supported
+cannot currently limit per specific user - now at the group level
+cost allocation tags per workgroup
+
+automated athena queries
+can get notified via SNS if what to know if data scans start to creep up
+
+output alternatives to current csv via console
+can create user-defined functions now
+can currently use SDK + CLI
+results of Athena query to Lambda function
+
+JDBC connector to BI tool to avoid timeouts/console issues
+
+query > queue
+query shows as running but not actually running
+noticing that jobs running slower at the top of the hour - move to middle of the hour
+
+Lake Formation
+used to control access permissions per user
+even at the column level control, may be row level in the future
+facilitates auditing
+
+rumors to automate limiting PII data access 
+
+if underlying data is not columnar based, then even if you only show the user a specific column they are allowed, all data is still scanned
+good use case to opt for parquet files moving forward
+
+PrivateLink = private endpoint
+
+question
+noticed that queries are slowing down as more and more ad-hoc + automated in a given workgroup 
+does each workgroup have it's own queue?
+
+S3 requester = can query s3 in a different account?
+
+in preview = can request to use the new version of presto
+better support for geospatial functions
+
+UDF
+custom code in SQL queries
+Query Federation SDK
+
+ask max increase
+
+https://aws.amazon.com/blogs/big-data/query-any-data-source-with-amazon-athenas-new-federated-query/
+SQL queries across data stored in relational, non-relational, object, and custom data sources
+Athena executes federated queries using Data Source Connectors that run on AWS Lambda
