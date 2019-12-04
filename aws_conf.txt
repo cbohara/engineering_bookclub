@@ -174,3 +174,73 @@ ask max increase
 https://aws.amazon.com/blogs/big-data/query-any-data-source-with-amazon-athenas-new-federated-query/
 SQL queries across data stored in relational, non-relational, object, and custom data sources
 Athena executes federated queries using Data Source Connectors that run on AWS Lambda
+
+##############
+3:30pm
+ANT222
+Analytics with Amazon Athena
+##############
+
+https://aws.amazon.com/blogs/big-data/query-any-data-source-with-amazon-athenas-new-federated-query/
+
+only available in us-east-1
+use specific workgroup when wanting to use new functionality
+AmazonAthenaPreviewFunctionality
+
+now can use Athena to query 10 new data sources
+build your own UDFs
+build your own connectors to custom data sources
+apply sagemaker inference as part of your queries
+100% open sourcee SDK + connectors
+
+https://github.com/awslabs/aws-athena-query-federation
+
+workshop overview
+intro to Athena Federated Query
+connect Athena to Amazon Cloudwatch logs
+build custom data source
+build UDF
+use sagemaker
+
+avoid data silos
+you can still choose best data store for specific data problem
+now query it all from Athena
+
+connectors
+- JDBC
+Aurora, MySQL, Postgres, Redshift
+- Redis  
+- CloudWatch Logs + metrics
+- CMDB
+select * for ec2 instances;
+
+Athena query > lambda function > data sources
+built on top of Apache Arrow
+
+Athena will avoid stressing the data source if running read query will hurt your system
+
+1. Connect Athena to Amazon Cloudwatch logs
+https://github.com/awslabs/aws-athena-query-federation
+
+https://console.aws.amazon.com/lambda/home?region=us-east-1#/create/app?applicationId=arn:aws:serverlessrepo:us-east-1:292517598671:applications/AthenaCloudwatchConnector
+Navigate to Servless Application Repository and search for "athena-federation".
+Be sure to check the box to show entries that require custom IAM roles.
+Look for entries published by the "Amazon Athena Federation" author.
+
+We used CloudwatchConnector
+Provide S3 bucket
+AthenaCatalogName
+The name you will give to this catalog in Athena. !!It will also be used as the function name!!
+Deploy the application
+
+Go to the Athena Console in us-east-1 (N. Virginia) and create a workgroup called "AmazonAthenaPreviewFunctionality", 
+any queries run from that workgroup will be able to use Preview features described in this repository.
+Run a query "show databses in `lambda:<func_name>`" where <func_name> is the name of the Lambda function you deployed in the previous steps.
+
+2. Create custom connector
+https://github.com/awslabs/aws-athena-query-federation/tree/master/athena-example
+
+lesson learned
+I am DEFINITELY NOT going to create a custom connection :)
+too involved
+
