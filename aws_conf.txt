@@ -346,3 +346,72 @@ https://docs.aws.amazon.com/redshift/latest/dg/c-getting-started-using-spectrum-
 
 what went wrong? including table properties ('numRows'='172000')
 https://docs.aws.amazon.com/redshift/latest/dg/c-getting-started-using-spectrum-create-external-table.html
+
+to read 
+https://aws.amazon.com/blogs/big-data/10-best-practices-for-amazon-redshift-spectrum/
+
+##############
+11:45am
+ANT206-L
+Leadership session: Trends with data lakes and analytics
+##############
+
+data lake
+cost effective
+open to all users/applications to leverage data as broadly as possible
+use parquet for best analytics performance
+100gb/sec off of s3 = awesome network bandwidth
+data swam > Glue/Lake formation for cataloging > data lake
+
+lake formation
+ingest, catalog, and provide access control at the column level
+central point of configuration
+
+glue
+data catalog
+ETL = developer mindset = serverless spark
+
+New Relic - Kinesis integration 
+https://docs.newrelic.com/docs/integrations/amazon-integrations/aws-integrations-list/aws-kinesis-streams-monitoring-integration
+
+AWS data exchange
+https://aws.amazon.com/data-exchange/
+marketplace around data sets
+Life360 can become a publisher of data sets
+enrich your data with 3rd party data
+
+Redshift
+not just a data warehouse anymore
+now the lake house
+how do you get the best price performance?
+200+ new features in the past 18 months
+past few weeks = new console experience, materialized views, evaluate spacial data, 2.3x performance improvement
+https://aws.amazon.com/redshift/whats-new/
+
+Redshift federated query (preview)
+common pattern = historical data in data lake, recent data in data warehouse
+extend redshift to operation databases (Aurora, Postgres) = get real time business data
+
+redshift query optimizer will try to rewrite queries behind the scenes for better performance
+
+new RA3 instance
+https://aws.amazon.com/about-aws/whats-new/2019/12/amazon-redshift-announces-ra3-nodes-managed-storage/
+ability to pay for compute + storage separately
+
+redshift AQUA 
+https://techcrunch.com/2019/12/03/aws-speeds-up-redshift-queries-10x-with-aqua/ 
+process query with more nodes than are available in your cluster
+
+Redshift spatial support
+https://aws.amazon.com/about-aws/whats-new/2019/11/amazon-redshift-announces-support-spatial-data/
+https://aws.amazon.com/blogs/aws/using-spatial-data-with-amazon-redshift/
+
+EMR
+spot instances 
+
+Elasticsearch service
+UltraWarm = warm storage tier for ES
+
+Athena
+super simple SQL querying over S3
+federated querying = very different between Athena + Redshift
