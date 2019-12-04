@@ -247,3 +247,102 @@ too involved
 3. ML in Athena
 https://aws.amazon.com/about-aws/whats-new/2019/11/amazon-athena-adds-support-for-invoking-machine-learning-models-in-sql-queries/
 https://github.com/awslabs/aws-athena-query-federation/wiki/AthenaML-Tutorial
+
+##############
+WEDNESDAY
+##############
+
+##############
+8:30am
+ANT237
+Redshift workshop
+##############
+
+architecture
+columnar database
+
+leader node
+connect via JDBC connection
+only takes SQL command and requests work from compute nodes
+
+compute nodes
+special ability to read from S3
+massively parrallel fashion
+
+redshift spectrum
+10x the processing power available when querying via redshift spectrum 
+no data loading required
+scale compute + storage separately
+directly query data stored in S3
+parquet, ORC, avro, JSON, CSV data formats
+spectrum request 
+
+redshift advisor
+provides suggestions/guidance
+
+5 points of guidance = SET DW
+S
+sort key
+improve filter performance
+choose up to 3 columns
+
+E
+encoding of columns
+compress all columns except for 1st sort key column
+
+T
+table maintainance
+auto vacuum
+
+D
+distribution key
+
+W
+warehouse management
+setup different queues = one for ETL, one for ad-hoc
+can setup query monitoring rules
+ex: stops user from running select *
+
+concurrency scaling
+have redshift spin up additional clusters when queue backs up
+
+elastic resize
+size cluster up and down based on predictable trends
+
+https://github.com/mrscaer/amazon-redshift-modernize-dw
+compression
+when using the copy command to insert data into an empty table, Redshift will auto determine the compression per column based on the data type of the column 
+
+distribution
+Redshift uses a block size of 1 MB
+
+an optimal distribution = even # of rows per node
+if the distkey contains few unique values (low cardinality) or any excessive repeating values (non-uniform) then some nodes receive too many/too little rows
+
+use the ALTER table command to change the distribution key
+
+dist style AUTO is the default
+good for getting started with small data sets
+later on may be best to explicitly choose a dist style that best fits the dataset
+
+best practice!
+after inserting or deleting lots of rows from a table, run analyze and vacuum to update the statistics on the table + cleanup "deleted" rows that are actually still around
+
+sort key
+implement sort key in order to minimize data scan per query
+
+workflow management
+create different groups with different queues
+
+admin scripts 
+https://github.com/awslabs/amazon-redshift-utils
+https://github.com/awslabs/amazon-redshift-utils/tree/master/src/AnalyzeVacuumUtility
+
+spectrum tutorial help
+https://docs.aws.amazon.com/redshift/latest/dg/c-using-spectrum.html
+
+what was missing? IAM role missing full S3 permissions
+https://docs.aws.amazon.com/redshift/latest/dg/c-getting-started-using-spectrum-create-role.html
+
+what went wrong? including table properties ('numRows'='172000')
+https://docs.aws.amazon.com/redshift/latest/dg/c-getting-started-using-spectrum-create-external-table.html
