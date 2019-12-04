@@ -241,6 +241,9 @@ Run a query "show databses in `lambda:<func_name>`" where <func_name> is the nam
 https://github.com/awslabs/aws-athena-query-federation/tree/master/athena-example
 
 lesson learned
-I am DEFINITELY NOT going to create a custom connection :)
+I am DEFINITELY NOT going to create a custom connection nor UDFs :)
 too involved
 
+3. ML in Athena
+https://aws.amazon.com/about-aws/whats-new/2019/11/amazon-athena-adds-support-for-invoking-machine-learning-models-in-sql-queries/
+https://github.com/awslabs/aws-athena-query-federation/wiki/AthenaML-Tutorial
