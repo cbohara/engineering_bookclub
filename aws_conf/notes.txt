@@ -415,3 +415,69 @@ UltraWarm = warm storage tier for ES
 Athena
 super simple SQL querying over S3
 federated querying = very different between Athena + Redshift
+
+##############
+8:30am
+ANT404
+Build a single query to analyze data across Amazon Redshift & Amazon S3
+##############
+
+objectives
+
+- query log files + nested JSON data in S3
+- create shared data catalog using AWS glue
+- export data in columnar format using unload
+- create a secure data lake using formation
+- new geospatial functionality
+
+redshift + spectrum recap
+
+redshift architecture
+introduced new clusters on the fly to avoid backing up queues
+provide 1 hr per day to try out
+question - is there a cost control management system?
+
+new Redshift features
+vacuum + analyze maintenance runs automatically in the background
+workload management = better manage resources, not wasting away on an unused queue
+take data available in redshift + unload into s3 as parquet files 
+
+Spectrum
+don't load data into redshift
+create a table over external data store in S3
+querying in place
+
+spectrum query processing
+query optimized + compiled on leader node
+determine what goes to redshift spectrum + what is taken care of by redshift compute node
+query plan sent to compute nodes
+
+new Spectrum features
+speed up queries by caching metadata + small returns
+nested data support
+
+jupyter notebook will run redshift queries as if run from the console using the aws cli 
+
+AWS glue database is mapped to redshift spectrum schema
+
+-- querying JSON format cloudtrail via redshift spectrum
+https://docs.aws.amazon.com/redshift/latest/dg/tutorial-query-nested-data.html
+scalar object = single value
+vs objects + arrays = multiple values
+fixed DDL! will need to define everything upfront like we do in Athena
+question - is there anything like the glue crawler?  yes - will be taking care of later
+
+-- unload into parquet
+helpful for unloading colder data from Redshift DW into a data lake
+best to have large files ~128MB
+
+RE3 with managed storage = new type of redshift node
+transparently offload data on your behalf
+do not have access to the underlying S3 data
+
+-- lake formation
+IAM can be tedious
+lake formation adds permissions layer on top of your data lake
+however right now it's painful to use
+
+-- spatial queries
