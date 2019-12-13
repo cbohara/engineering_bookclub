@@ -512,4 +512,10 @@ Take raw click stream data > process in emr > intermediate storage > redshift fo
 
 Redshift - use compound sort key for time stamps
 
-Migration Collaborate early
+Migration advice = collaborate early!
+
+##############
+ANT238-R1
+AWS Data Exchange: Easily find & subscribe to third-party data in the cloud
+##############
+https://aws.amazon.com/data-exchange/
