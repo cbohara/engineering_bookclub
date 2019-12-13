@@ -5,7 +5,6 @@ MONDAY
 ##############
 
 ##############
-12:15pm
 ANT204
 How Amazon leverages AWS to deliver analytics at enterprise scale
 ##############
@@ -85,7 +84,6 @@ leverage data migration service (DMS) + schema conversation tool (SCT)
 
 
 ##############
-2:30pm
 WPT203
 We Power Tech - In Diversity + Inclusion, Details Matter
 ##############
@@ -116,7 +114,6 @@ TUESDAY
 ##############
 
 ##############
-11:30am
 ANT205
 What's new with Athena chalktalk
 ##############
@@ -176,7 +173,6 @@ SQL queries across data stored in relational, non-relational, object, and custom
 Athena executes federated queries using Data Source Connectors that run on AWS Lambda
 
 ##############
-3:30pm
 ANT222
 Analytics with Amazon Athena
 ##############
@@ -253,7 +249,6 @@ WEDNESDAY
 ##############
 
 ##############
-8:30am
 ANT237
 Redshift workshop
 ##############
@@ -351,7 +346,6 @@ to read
 https://aws.amazon.com/blogs/big-data/10-best-practices-for-amazon-redshift-spectrum/
 
 ##############
-11:45am
 ANT206-L
 Leadership session: Trends with data lakes and analytics
 ##############
@@ -417,7 +411,6 @@ super simple SQL querying over S3
 federated querying = very different between Athena + Redshift
 
 ##############
-8:30am
 ANT404
 Build a single query to analyze data across Amazon Redshift & Amazon S3
 ##############
@@ -480,4 +473,43 @@ IAM can be tedious
 lake formation adds permissions layer on top of your data lake
 however right now it's painful to use
 
--- spatial queries
+##############
+THURSDAY
+##############
+
+##############
+NFX201
+More data science with less engineering: ML infrastructure at Netflix
+##############
+
+https://medium.com/netflix-techblog/open-sourcing-metaflow-a-human-centric-framework-for-data-science-fa72e04a5d9
+
+Check points data pull out of the box
+Persist code, data, and dependencies
+Request metaflow sandbox
+
+##############
+SVS401-R1
+Optimizing your serverless applications
+##############
+
+Lambda - use functions to transform, not transport - like don’t just use it to move anfile from point a to b without any transform
+Check out parameter service
+Leverage lambda layers to reduce code duplication
+Amazon RDS proxy for connecting with traditional relational DBs
+Check out Eventbridge
+
+##############
+AMZ304
+Prime Video: Processing analytics at petabyte scale
+##############
+
+Data lake 
+Create pub sub system
+Provide ui and api
+
+Take raw click stream data > process in emr > intermediate storage > redshift for merge with historical data > back to data lake
+
+Redshift - use compound sort key for time stamps
+
+Migration Collaborate early
