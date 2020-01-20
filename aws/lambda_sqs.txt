@@ -38,3 +38,33 @@ Tutorial
 https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-lambda-function-trigger.html
 configure Lambda function to process messages from one queue while another queue acts as a dead letter queue for messages that your Lambda function can't process successfully 
 when you resolve the issue, you can redrive the messages from the dead-letter queue through the lambda function
+
+Sending and Receiving Messages in Amazon SQS
+https://boto3.amazonaws.com/v1/documentation/api/latest/guide/sqs-example-sending-receiving-msgs.htmlk
+
+Amazon SQS Delay Queues
+https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-delay-queues.html
+
+delay queue 
+postpone delivery of new messages to a queue for a number of seconds
+
+delay queues are similar to visibility timeouts
+both features make messages unavailable to the consumers for a specific period of time
+
+delay queues - a message is hidden when it is first added to the queue to give more time for the consumer application to process messages
+
+visibility timeout - hidden only after it is consumed from the queue so it can't be snagged by other consumers
+
+Amazon SQS Message Attributes
+https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-message-attributes.html
+
+optional 
+sep from message body but sent along side it
+you can use the message attributes to handle a message in a particular way without having to process the message body first
+essentially a means to provide metadata that may determine how to process the message
+
+https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_SendMessage.html
+MessageBody 
+Type: string
+maximum string size is 256 KB
+can only include JSON or unformatted text
