@@ -1,0 +1,42 @@
+Timeouts, retries, and backoff with jitter
+https://aws.amazon.com/builders-library/timeouts-retries-and-backoff-with-jitter/
+
+design systems to reduce probability of failure
+but systems inevitabily fail
+so design systems to tolerate and reduce probabiliyt of failure
+avoid magnifying a small percentage of failures into a complete outage
+
+# retries
+requests take longer than usual/never complete
+client sets timeouts = max amount of time client waits for request to complete
+better to retry request again vs wait forever
+
+partial failure = % of request succeeds
+transient failure = request fails for a short period of time
+
+retries allow client to survive random partial failures + short-lived transient failures by sending same request again
+
+# backoff
+if system is failing bc overload, implement backoff
+increases time between subsequent retries
+
+# jitter
+random amount of time before making or retrying a request 
+prevents large bursts by spreading out the arrival rate
+
+# timeouts
+set a timeout on any remote call
+
+# retries and backoff
+when failures are caused by overload, retries that increase the load can make matters significantly worse
+they can even delay recovery 
+
+capped exponential backoff
+cap backoff to max value
+
+circuit breakers
+calls to downstream service are stopped entirely when an error threshold is exceeded
+however can introduce significant additional time to recovery
+
+# jitter
+avoid overloading again when all retries happen at the same time
