@@ -1,0 +1,40 @@
+AWS Lambda Adds Amazon Simple Queue Service to Supported Event Sources
+https://aws.amazon.com/blogs/aws/aws-lambda-adds-amazon-simple-queue-service-to-supported-event-sources/
+
+Create SQS queue
+Lambda handler to read messages off queue 
+
+can choose the maximum # of records a single lambda will process (up to 10)
+can control concurrent execution limit for lambda
+
+for each batch of messages processed if the function returns successfully then those messages will be removed from the queue
+if the function errors or times out then the messages will be returned to the queue after the visibility timeout set on the queue
+** so need to only have 1 batch of 2000 messages per post per lambda in order to avoid partial success
+
+Amazon SQS Short and Long Polling
+https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-short-and-long-polling.html#sqs-long-polling
+short polling = default
+constantly check for new messages
+
+long polling 
+reduce costs
+allow consumers to receives messages as soon as they arrive in the queue
+
+Using AWS Lambda with Amazon SQS
+https://docs.aws.amazon.com/lambda/latest/dg/with-sqs.html
+lambda reads messages in batches
+invokes function once per batch
+if function successfully processes a batch, Lambda deletes its message from the queue
+all messages in a failed batch return to the queue
+
+configuring queue for use with lambda
+set source queue's visibility timeout to at least 6x the timeout that you configure on your function
+
+if a messages fails to be processed multiple times, SQS can send it to a dead-letter queue
+configure dead letter queue on source queue, not on lambda function
+set maxReceiveCount to at least 5
+
+Tutorial
+https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-configure-lambda-function-trigger.html
+configure Lambda function to process messages from one queue while another queue acts as a dead letter queue for messages that your Lambda function can't process successfully 
+when you resolve the issue, you can redrive the messages from the dead-letter queue through the lambda function
