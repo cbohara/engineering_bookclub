@@ -1,0 +1,176 @@
+Data Analytics Exam Readiness
+https://www.aws.training/Details/eLearning?id=46612
+
+# general strategy
+read + understand ?
+ID key phrases + qualifiers 
+try to answer the question before reading answer options
+elminate answer options based on key phrases and qualifiers 
+if you still don't know, flag the question ad move on
+make sure to answer all questions before time is up
+
+Domain 1: Collection
+ingesting raw data
+wide variety - structured, semistructured, unstructured
+from batch to streaming
+
+collection topics:
+ops characteristics
+handles freq, volume, and source
+addresses key properties of data - i.e. formmat, compression
+
+Subdomain 1.1: Determine the operational characteristics of the collection system
+
+kinesis data streams
+1. what happens if a record fails?
+KPL PutRecord often sends multiple records to the stream per request
+if a single record fails, it will automatically be added back to the KPL buffer + retried
+failure of one record doesn't impact the processing other records in the request
+
+https://docs.aws.amazon.com/streams/latest/dev/kinesis-producer-adv-retries-rate-limiting.html
+when you add KPL user record, a record is given a timestamp + added to a buffer with a deadline set by the RecordMaxBufferTime
+the time stamp/deadline sets the buffer priority
+records are flushed from the buffer based on
+buffer priority - RecordMaxBufferTime
+aggregration configuration - AggregationMaxCount, AggregationMaxSize 
+collection configuration - CollectionMaxCount, CollectionMaxSize
+
+records flushed are then sent to to Kinesis data stream using PutRecords
+records that fail are automatically put back into KPL buffer
+new deadline = whatever is the lower value
+half the current RecordMaxBufferedTime
+record's TTL value
+this is an aggressive retry strategy
+
+rate limiting 
+default throughput per producer is 50% higher than the actual shard limit > allows for shard saturation from a single producer
+best practice is for each producer to retry for max throughput aggressively 
+handle any resulting throttling if determined excessive by expanding capacity of stream by resharing and implementing appropriate partition key strategy
+
+https://aws.amazon.com/blogs/big-data/implementing-efficient-and-reliable-producers-with-the-amazon-kinesis-producer-library/
+for KPL to scale must
+- batch records and perform parallel HTTP requests
+- handle transient failures + perform retries
+
+PutRecords = maximize throughput of sending records
+PutRecords is not atomic - can partially fail
+PutRecords always returns 200 even if some records within the batch failed
+must write code that exams PutRecordsResult object to ID individual failures + take appropriate action
+
+Aggregation = maximize throughput of shards receiving records
+each shard can receive 1MiB or 1000 records/second and is throttled if either limit is reached
+
+The KPL provides the following features out of the box:
+Batching of puts using PutRecords (Collection) = max throughput sending records
+Tracking of record age and enforcement of maximum buffering times
+Per-shard record aggregation (Aggregation) = max throughput receiving records
+Retries in case of errors, with ability to distinguish between retryable and non-retryable errors
+Per-shard rate limiting to prevent excessive and pointless spamming
+Useful metrics and a highly efficient CloudWatch client
+
+2. how available + durable is kinesis data streams?
+synchronously replicates data across 3 AZ
+not suited for long term persistence - default retention of 24hrs, can extend to 7 days
+
+3. what happens if a consumer fails?
+KCL checkpointing 
+stores a cursor in DDB to durably track records that have been read by the kinesis stream
+bc of this feature you need to
+have uniq app names in KCL for each app 
+be mindful of DDB provisioned throughput errors if your stream has too many shards or if the application does frequent checkpointing
+
+max retention for collection services
+DDB streams = 24 hours
+Kinesis data stream = 7 days 
+SQS = 14 days
+
+Subdomain 1.2: Select a collection system that handles the frequency, volume, and source of data
+
+Use the right tool for the job
+Focus on these 2 main questions
+1. How quickly do you need analytics results?
+2. Where is the data coming from
+
+Batch - Glue
+Streaming - Kinesis
+Transactional - DMS (not only for one-time migration, can also be used for continuous replication) > S3 > Glue > Data Lake
+
+Kinesis data stream
+1,000 PUT/second per shard
+1 share = 1 MB/sec input + 2 MB/sec output
+3 AZ
+pay per shard hour
+pay per PUT payload unit
+pay for extended data retention
+pay for enhanced fanout
+
+
+Kinesis firehose
+synch rep across 3 AZ
+pay for the volume of data ingested
+pay for any data format conversions
+
+DMS
+use appropriate underlying EC2 instance to scale 
+option to enable Multi-AZ
+pay for computer resources 
+
+Glue
+specify approp # of DPUs
+pay hourly rate billed by the second for crawlers + ETL jobs
+
+Subdomain 1.3: Select a collection system that addresses the key properties of data, such as order, format, and compression
+
+issues with incoming data
+- out-of-order data
+- duplicate data - increase burden on data stores, impacts accuracy + reliability of reports, increases system latency, and causes multiple updates of the same data
+
+delivery + ordering with AWS
+DDB streams - exactly once - supports guaranteed delivery
+Kinesis data stream - at least once - supports guaranteed delivery
+Kinesis data firehose - at least once - DOES NOT support guaranteed delivery
+SQS standard - at least once - DOES NOT support guaranteed delivery
+SQS FIFO - exactly once - supports guaranteed delivery 
+Kafka/MSK - at least one - supports guaranteed delivery
+
+other tools to transform + filter data during collection process
+- kineis firehose
+data transformation - lambda function processes each buffered batch asynch
+can enable source record backup to backup untransformed records 
+can also batch, compress, and encrypt data before loading data to destination
+- lambda
+- DMS - can transform before loading to target
+
+Exam tips
+All responses are plausible
+Must ID which meets requirements 
+
+Diagnose question
+1. ID any AWS services and situational characterists
+2. ID issues + concerns
+3. ID requirements
+4. ID what you are being asked for
+
+Domain 2: Storage + Data Management
+
+2.1: Determine the operational characteristics of the storage solution for analytics
+
+Operational Data Stores (OLTP)
+classic transactional ACID data stores
+RDS - fast, scales vertical, multi-AZ
+DDB - fast, scales horiz, 3 AZ
+ElastiCache (Redis, Memcache)- extremely fast, multi-AZ
+Neptune (Graph) - fast, scales vert, 6 replicas across 3 AZ
+vs
+Analytic Data Stores
+OLAP = realtime feedback + ad-hoc queries 
+Decision Support Systems (DSS) = colder data in data lake + warehouse
+Redshift - data loads linearly, replicates data within warehouse + backs up into S3
+
+2.2: Determine data access and retrieval patterns
+
+2.3: Select appropriate data layout, schema, structure, and format
+
+2.4: Define data lifecycle based on usage patterns and business requirements
+
+2.5: Determine the appropriate system for cataloging data and managing metadata
