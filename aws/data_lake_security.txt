@@ -1,0 +1,118 @@
+AWS re:Invent 2018: Best Practices to Secure Data Lake on AWS (ANT327)
+https://youtu.be/U8Z_pfMRnBA
+
+primary components of data lake
+object storage in S3 queried via Athena
+attached instance storage in Redshift
+
+shared responsibility model
+infra services - EC2
+managed services - Redshift 
+serverless - S3, DDB, Athena, Glue
+
+athena
+no infra to manage
+service access is governed via IAM policy docs
+S3 access via bucket policy/IAM policy
+encryption is managed
+
+data workflow
+think of the data lake in terms of producers + consumers
+clear source of data + clear consumer of data
+sep access control based on type of user and what 
+
+accroding to Gartner, 80% of data lakes will not include data catalog, making access inefficient
+
+ingest data
+data owner ID new data set > data eng create dataset def in data coatalog + load/stage raw data > data curator registers raw data against dataset definition
+
+searching + accessing data
+data sci/biz user search for data in data catalog, ID data + request access > security admin approve access > data sci/biz user access + query data
+
+data analytics tools + access patterns
+Athena, Redshift Spectrum, Redshift 
+
+AWS directory service
+suggested active directory groups
+developer 
+analyst
+data eng
+
+AWS identity + access management 
+maps to IAM roles 
+dev_role
+analyst_role 
+dataeng_role
+
+enable federation at Redshift level > Redshift DB groups
+enable Glue catalog resource policies 
+
+store > discover > subscribe > deliver > analyze
+
+summary
+fedfate access
+setup roles + responsibility matrix 
+leverage centralize data catalog
+incentivize teams to register datasets to catalog
+streamline process between data producers + data consumers
+
+AWS Lake Formation
+https://youtu.be/hXXytLly7tw
+
+register existing data 
+blueprint
+one time or incremental update
+user specify data source, data landing zone, and specify how often you want to load the data
+blueprint takes care of 
+1. discover source table schema
+2. automatically convert to target data format
+3. automatically partition the data based on partitioning schema
+4. keep track of data that was already processed
+
+secure once, access in multiple ways
+permissions are defined on top of metadata in lake formation data catalog
+imposed about wide range of services
+
+1. set up user access in Lake Formation
+2. user tries to access data via one of these services - athena, redshift, glue, quicksight, sagemaker
+3. service sends user creds to lake formation
+4. lake formation returns temp creds to allow data access
+
+supports granting perms based on 
+IAM user, group, and roles
+active directory user through federation
+
+permissions are simple via UI check boxes
+grant all
+specific perms - check options
+
+specify perms on tables + columns rather than buckets + objects 
+
+can easily look at what perms a given user has 
+can easily revoke perms to everything like when an employee leaves the company
+
+not only at the table level, but also at the column level
+can avoid exposing PII data
+
+user query > end-services retreives underlying data directly from S3 > service requests access from lake formation > request objects for query are returned to service > service returns query result
+
+can do a text-based search across all metadata!
+
+example
+1. use blueprint to ingest data
+2. grant perms to securely share data
+3. query the data
+
+1. blueprint
+use blueprint to do bulk or imcremental load from MySQL table into data lake
+ingested 12 tables in parquet format 
+schema automatically detected + added to the catalog
+
+2. grant perms 
+specify table + define access permissions
+
+3. query in Athena
+allows user that was granted perm to query 
+
+no additional charge for Lake Formation
+only use underlying services - Glue crawler, S3, etc
