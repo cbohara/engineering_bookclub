@@ -1,13 +1,22 @@
 Data Analytics Exam Readiness
 https://www.aws.training/Details/eLearning?id=46612
 
-# general strategy
+# general exam strategy
 read + understand ?
 ID key phrases + qualifiers 
 try to answer the question before reading answer options
 elminate answer options based on key phrases and qualifiers 
 if you still don't know, flag the question ad move on
 make sure to answer all questions before time is up
+
+all responses are plausible
+must ID which meets the specific requirements 
+
+Diagnose question
+1. ID any AWS services and situational characterists
+2. ID issues + concerns
+3. ID requirements
+4. ID what you are being asked for
 
 ########
 Domain 1: Collection
@@ -149,15 +158,6 @@ can also batch, compress, and encrypt data before loading data to destination
 - lambda
 - DMS - can transform before loading to target
 
-Exam tips
-All responses are plausible
-Must ID which meets requirements 
-
-Diagnose question
-1. ID any AWS services and situational characterists
-2. ID issues + concerns
-3. ID requirements
-4. ID what you are being asked for
 
 ########
 Domain 2: Storage + Data Management
@@ -330,3 +330,184 @@ RDS + Aurora
 MariaDB, Microsoft SQL, MySQL, Oracle, PostgreSQL
 
 in addition to S3 + DDB via their native interfaces
+
+########
+Domain 3: Processing
+########
+
+###
+Subdomain 3.1: Determine appropriate data processing solution requirements
+###
+Glue triggers
+scheduled - cron
+job events (conditional) - event-based trigger that fires when a previous job or multiple jobs satisfy a list of conditions
+CloudWatch events, Lambda, or step functions can trigger AWS Glue jobs
+
+Spark libraries
+Spark SQL - query structured data
+Spark streaming - reuse for both streaming + batch processing - you can join streams against historical data or run ad-hoc queries on the stream
+MLlib - machine learning 
+GraphX - simply graph analytics tasks
+
+EMR data source integrations
+With EMRFS - EMR can use S3 as an object store for Hadoop - EMR streams the data from S3 to each instance in your cluster + begins processing immediately
+
+###
+Subdomain 3.2: Design a solution for transforming and preparing data for analysis
+###
+Batch vs stream
+Static resources vs dynamic resources
+
+###
+Subdomain 3.3: Automate and operationalize a data processing solution
+###
+# Glue workflow
+https://docs.aws.amazon.com/glue/latest/dg/orchestrate-using-workflows.html
+set of related jobs/crawlers/triggers
+provides visual rep of workflow as a graph in console
+to share and manage state throughout workflow run, you candefine default workflow run properties 
+these properties are available to all jobs in the workflow
+
+# Automating AWS Glue ETL jobs with AWS Lambda
+1. Build data lake in S3
+Ingested data lands in S3 bucket = raw zone
+2. To make that data available, you have to catalog its schema in AWS Glue Data Catalog
+Lambda function with S3 trigger starts the glue crawler and catalogs the data
+use SQS for event debugging + retries
+3. when crawler is finished, invoke a second lambda function using a cloudwatch even rule that monitors when the crawler is done > starts Glue job to convert raw data into Parquet format and stores converted data into S3 bucket = processed zone
+5. as soon as the ETL job finishes, another Cloudwatch event rule sends you an SNS alert notification when data is done processing 
+
+# Using step functions with AWS Glue
+Services orchestrated via AWS Step Functions
+Ex: goal is to combine 2 diff data sets
+1. S3 = landing zone for both data sets
+2. CloudWatch events schedules the step function state machine to run weekly
+3. when the step function state machine is triggered by a CloudWatch Event, it confirms the availability of the datasets via Lambda function
+4. The step function state machine will then begin ETL job orchestration
+5. Step functions will start 2 Glue ETL jobs in parallel - one to process each raw incoming data set
+6. after the 2 Glue jobs are run, another AWS Glue ETL job combines the 2 data sets 
+
+########
+Domain 4: Analysis and visualization
+########
+
+###
+Subdomain 4.1: Determine the operational characteristics of an analysis and visualization solution
+###
+seek to decouple components _ select the analytics tool that is right for the specific need vs trying to choose a single analytics solution
+you can use diff analytics tools on the same data set to answer different questions
+
+Data analytics white paper
+https://d1.awsstatic.com/whitepapers/Big_Data_Analytics_Options_on_AWS.pdf
+
+1. Cost
+Athena
+per query, per TB scanned
+
+ElasticSearch service
+pay only for what you use
+ES instance hours, EBS storage (if this option is chosen), and standard data transfer fees
+there is a free tier
+automated snapshots stored 14 days free of charge
+manual snapshots charged per S3 storage rates
+
+EMR
+pay for when the cluster is up + running
+temp cluster can terminate after analysis is complete
+variety of EC2 instance types - choose how many
+
+Kinesis ecosystem
+data stream pricing - 2 components
+hourly charge per share
+charge for each 1 million PUT transactions
+
+firehose
+amount of data processed
+additional fees for converting data to Parquet
+
+data analytics
+hourly rate based on # KPUs
+
+Redshift
+charged based on size and # nodes 
+no additional charge for backup storage up to 100% of provisioned storage
+backup storage beyond provisioned storage are in S3 using standard S3 rates
+no data transfer costs between S3 and Redshift
+
+sagemaker
+pay for what you use
+on-demance ML instances, ML storage, and fees for data processing in host instances
+
+2. Performance
+Athena
+compressing, partitioning, converting to columnar
+
+Elasticsearch
+instance type
+workload
+index - made up of shards of data - can be distributed on diff instances in multiple AZ
+# of shards used
+read replica config - read replica maintained in diff AZ if zone awareness is checked
+storage config (instance or EBS) - fast SSD instance storage or multiple EBS volumes
+
+EMR
+master node doesn't require much processing power
+core node needs processing power + storage
+task nodes just need processing power
+launch cluster in same region as your data
+scale back debugging logs when you finish dev to save log costs + reduce processing load on the cluster
+
+kinesis 
+streams
+choose throughput capacity in terms of # of shards
+enhanced fanout improves performance
+
+firehose
+specify a batch size or batch interval and data compression to control how quickly data is uploaded to destinations
+
+analytics 
+increase number of KPUs
+
+Redshift 
+choose dense storage or dense compute
+https://docs.aws.amazon.com/redshift/latest/dg/c_designing-tables-best-practices.html
+https://docs.aws.amazon.com/redshift/latest/dg/c-query-performance.html
+factors that impact query performance
+data characteristics
+cluster config
+database operations
+how your data is loaded 
+
+sagemaker
+auto scaling
+
+3. durability + availablity
+Athena 
+serverless, S3 is durable
+
+ElasticSearch service
+enable zone awareness for higher availability
+supports domain across 2 AZ
+enable replicas - instances are auto distributed to deliver cross-zone replication
+use snapshots for durability + to recover domain
+auto creates daily snapshots by default
+
+Kinesis 
+fully managed
+
+Redshift 
+fault tolerate for core node failures + continues job if core/task node goes down
+when core node fails, EMR will auto provision a new node
+if all nodes in the cluster are lost, EMR will not replace them
+
+Redshift 
+automatically detects + replaces a failed node
+
+
+
+###
+Subdomain 4.2: Select the appropriate data analysis solution for a given scenario
+###
+###
+Subdomain 4.3: Select the appropriate data visualization solution for a given scenario
+###
