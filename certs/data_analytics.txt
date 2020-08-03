@@ -390,124 +390,145 @@ Ex: goal is to combine 2 diff data sets
 ########
 Domain 4: Analysis and visualization
 ########
+use data you collected, processed, and transformed to generate actionable insights
+
+white paper
+https://d1.awsstatic.com/whitepapers/Big_Data_Analytics_Options_on_AWS.pdf
 
 ###
 Subdomain 4.1: Determine the operational characteristics of an analysis and visualization solution
 ###
-seek to decouple components _ select the analytics tool that is right for the specific need vs trying to choose a single analytics solution
-you can use diff analytics tools on the same data set to answer different questions
+best and most cost-effective solution
+decouple components - don't try to fit everything to work with one solution
+can use same analytics tool on same data set to answer different questions 
 
-Data analytics white paper
-https://d1.awsstatic.com/whitepapers/Big_Data_Analytics_Options_on_AWS.pdf
-
-1. Cost
 Athena
-per query, per TB scanned
+interactive ad-hoc queries
+cost - per TB queried
+performance
+- improve performance with compression, partitioning, and columnar format
+durability + availability
+- highly available
+scalability + elasticity
+- serverless
+interfaces
+- console, CLI, API, JDBC 
+- create visuals in quicksight based on Athena queries - native when data is registered in AWS Glue Data Catalog
 
-ElasticSearch service
-pay only for what you use
-ES instance hours, EBS storage (if this option is chosen), and standard data transfer fees
-there is a free tier
-automated snapshots stored 14 days free of charge
-manual snapshots charged per S3 storage rates
+ElasticSearch
+operational analytics
+cost
+- managed service, pay for what you use per ES instance hour, EBS storage (if used), and standard data transfer fees
+- auto snapshots stored 14 days free, manual snapshots charged S3 storage rates
+performance
+- depends on
+-- instance type
+-- workload
+-- index - made up of shards of data - can be distributed on diff instances in multiple AZ
+-- # of shards used 
+-- read replica config - replicas in diff AZ if zone awareness is checked
+-- storage config (instance or EBS) - search engine makes heavy use of storage devices - fast SSD instance storage or multiple EBS volumes
+durability + availability
+- enable zone awareness - dist instances across 2 AZ
+- enable replicas - instances auto distributed to deliver cross-zone replication
+- daily auto snapshots, can be used to recover 
+scalability + elasticity
+- add/remove instances
+- modify EBS volumes 
+interfaces
+- console, CLI, API
+- integrations with Kibana and Logstash
 
 EMR
-pay for when the cluster is up + running
-temp cluster can terminate after analysis is complete
-variety of EC2 instance types - choose how many
-
-Kinesis ecosystem
-data stream pricing - 2 components
-hourly charge per share
-charge for each 1 million PUT transactions
-
-firehose
-amount of data processed
-additional fees for converting data to Parquet
-
-data analytics
-hourly rate based on # KPUs
-
-Redshift
-charged based on size and # nodes 
-no additional charge for backup storage up to 100% of provisioned storage
-backup storage beyond provisioned storage are in S3 using standard S3 rates
-no data transfer costs between S3 and Redshift
-
-sagemaker
-pay for what you use
-on-demance ML instances, ML storage, and fees for data processing in host instances
-
-2. Performance
-Athena
-compressing, partitioning, converting to columnar
-
-Elasticsearch
-instance type
-workload
-index - made up of shards of data - can be distributed on diff instances in multiple AZ
-# of shards used
-read replica config - read replica maintained in diff AZ if zone awareness is checked
-storage config (instance or EBS) - fast SSD instance storage or multiple EBS volumes
-
-EMR
-master node doesn't require much processing power
-core node needs processing power + storage
-task nodes just need processing power
-launch cluster in same region as your data
-scale back debugging logs when you finish dev to save log costs + reduce processing load on the cluster
-
-kinesis 
-streams
-choose throughput capacity in terms of # of shards
-enhanced fanout improves performance
-
-firehose
-specify a batch size or batch interval and data compression to control how quickly data is uploaded to destinations
-
-analytics 
-increase number of KPUs
-
-Redshift 
-choose dense storage or dense compute
-https://docs.aws.amazon.com/redshift/latest/dg/c_designing-tables-best-practices.html
-https://docs.aws.amazon.com/redshift/latest/dg/c-query-performance.html
-factors that impact query performance
-data characteristics
-cluster config
-database operations
-how your data is loaded 
-
-sagemaker
-auto scaling
-
-3. durability + availablity
-Athena 
-serverless, S3 is durable
-
-ElasticSearch service
-enable zone awareness for higher availability
-supports domain across 2 AZ
-enable replicas - instances are auto distributed to deliver cross-zone replication
-use snapshots for durability + to recover domain
-auto creates daily snapshots by default
+big data analytics
+cost
+- pay for when cluster is up based on how many and what type EC2 instances chosen
+performance
+- type + # of EC2 instances
+- need sufficient memory, storage, and processing power
+- master node does not require much processing power
+- core nodes need storage + processing power
+- task nodes only need processing power
+- launch cluster in same region as your data and other AWS resources
+- avoid excessive logging to reduce processing load
+durability + availability
+- fault tolerant for core node failures - if core node fails, EMR will provision a new one
+- however if all nodes in the cluster are lost, EMR will not replace them
+scalability + elasticity
+- resize cluster 
+- add core nodes at any time for additional storage + processing
+- add task nodes any time to add process power
+- decouple memory + compute from storage - use S3 on EMRFS - greater flexibility + cost efficiency
+interfaces
+- Hive - HiveQL to query data > translates into a MR job - direct integration with DDB and S3
+- Pig - Pig Latin scripting language over structured + unstructured data > translates into MR job
+- Spark - in memory processing
+- HBase - non-relational DB runs on top of Hadoop - stores lots of sparse data using column-based compression - fast lookup in-memory - optimized sequential writes - can backup to S3 
+- Presto - SQL query for low-latency, ad-hoc analysis - process multiple data sources (including HDFS + S3)
+- Kinesis connector - EMR read directly from Kinesis Data Streams for batch processing
 
 Kinesis 
-fully managed
+real-time analytics
+perform time-series analytics, feed real-time dashboards, and create real-time metrics
+cost 
+- streams - hourly charge per shard + charge for each 1M PUT transactions
+- firehose - amount of data ingested, extra charge for convert to parquet
+- analytics - hourly rate based on avg # KPUs
+- video - pay for volume you ingest, storage, and consume 
+performance
+- streams - # of shards, enhanced fanout
+- firehose - batch size + interval + data compression
+- analytics - # of KPUs
+durability + availability
+- fully managed
+- kinesis data stream synchronously replicates data across 3 AZ, and stores up to 7 days
+scalability + elasticity
+- streams - dep on # of shards, can increase/decrease capacity at any time - but it's not instantaneous 
+- firehose - autoscale
+- analytics - increase # KPUs
+- video - autoscale
+interfaces
+- stream - producers + consumers
+- firehose - destinations - S3, Redshift, Splunk, ElasticSearch
+- analytics - input options = stream or firehose - output to stream, firehose, or lambda
+- video - use APIs 
 
 Redshift 
-fault tolerate for core node failures + continues job if core/task node goes down
-when core node fails, EMR will auto provision a new node
-if all nodes in the cluster are lost, EMR will not replace them
+run complex analytic queries against structured data 
+and Redshift spectrum runs queries against structured + unstructured data
+cost 
+- charged on type and # of nodes
+- no additional charge for backup storage to 100% of provisioned storage 
+- excess storage is put into S3 + charged S3 rate
+- no data transfer charge between S3 and Redshift
+performance
+- uses columnar storage, data compression, and zone maps to reduce I/O needed to perform queries 
+- MPP architecture, parallelizing, and distributing SQL operations to take advantage of all available resources
+- hardware designed for high performance data processing using locally attached storage
+- 10 GigE mesh network to max throughput between nodes
+- DS or DC nodes
+- how you design, load, and cleanup the tables
+durability + availability
+- auto detects + replaces failed nodes
+scalability + elasticity
+- change # and type of nodes 
+- elastic resize = change # of nodes
+- classic resize = diff node types, takes long time - snapshot of existing cluster, restore snapshot in new cluster with desired node types, resize target cluster, direct traffic from original cluster to new target cluster 
+interfaces
+- JDBC/ODBC drivers
 
-Redshift 
-automatically detects + replaces a failed node
+Sagemaker
+predictive analytics
+cost 
+- pay for what you use - on-demand ML instances, ML storage, and fees for data processing
+performance
+- automatic autoscaling
+- manually change # and type of instances
+durability + availability
+- fully managed, multi AZ
+scalability + elasticity
+- auto scaling
+interfaces
+- access notebook instances via console or API
+- Python SDK
 
-
-
-###
-Subdomain 4.2: Select the appropriate data analysis solution for a given scenario
-###
-###
-Subdomain 4.3: Select the appropriate data visualization solution for a given scenario
-###
