@@ -532,3 +532,136 @@ interfaces
 - access notebook instances via console or API
 - Python SDK
 
+Visualization services
+1. Distinguish between uses of static, interactive, and dynamic presentation of data
+2. Consideringg the appropriate format for presentation
+3. Matching tools and services for viz to the performance requiresments
+
+Analyze + visualize in place
+
+Quicksight
+SPICE - super fast parallel and in-memory calculation engine
+Analysis - container for a set of related visuals/stories
+you can use multiple data sets in an analysis 
+although any given visual can only use 1 data set
+https://docs.aws.amazon.com/quicksight/latest/user/working-with-analyses.html
+Visuals - graphical rep of data 
+ML Insights - propose potentially useful visuals 
+sheets - set of visuals viewed together in a single page
+can have multiple sheets (pages) per analysis
+stories - slide show containing set of 1+ scenes (captured visuals) - use to step through different iterations of analysis
+dashboard - read only snapshot of analysis - share with other users for reporting purposes
+
+Quicksight
+cost - standard, enterprise annual subs
+performance - SPICE uses combo of columnar storage + in memory tech to run interactive queries on large datasets
+durability + availability - SPICe auto replicates data
+scalability + elasticity - fully managed 
+interfaces - variety of data sources, export via share icon
+
+###
+Subdomain 4.2: Select the appropriate data analysis solution for a given scenario
+###
+descriptive analysis
+- aka data mining
+- what happened?
+- focus on hindsight
+- requires the highest amount of human effort + interpretation
+- ex: analyze ticket sales to find the best selling music artist last year
+
+diagnostic analysis
+- why did it happen?
+- focues on hindsight + insight 
+- used to compare historic data with other data to get more wholistic picture
+- ex: analyzing patient doctor visits + reasons to ID trends in patient care
+
+predictive analysis
+- what will happen?
+- focuses on insight + foresight
+- predict future events + trends 
+- ex: analyzing purchasing behavior to make relevant product recommendataions
+
+prescriptive analysis
+- what should I do?
+- focus on foresight
+- recommend actions to take based on data provided
+- greatest advantage is this can be automated via ML
+- predict outcomes based on info received
+- solve problem on thei rown + can send results to human decision makers 
+- ex: predict the best time to run ads
+
+cognitive + artifical intelligence
+- what are recommended actions?
+- focus on foresight + hypothesis input
+- tries to mimic what the human brain does in problem solving
+- generate hypothesis from existing data, connections, and constraints
+ex: Amazon Alexa
+
+batch analytics
+- querying large amounts of cold data
+- on a regular schedule in the background
+- using EMR/Redshift for power
+https://aws.amazon.com/blogs/big-data/building-event-driven-batch-analytics-on-aws/
+
+interactive analytics
+- allows user to query + see result right away 
+- Athena, ElasticSearch, Redshift
+https://aws.amazon.com/blogs/big-data/query-and-visualize-aws-cost-and-usage-data-using-amazon-athena-and-amazon-quicksight/
+
+stream analytics
+- makes sense of data whose value diminishes quickly over time
+- real-time monitoring + response 
+- stream data processing requires 2 layers - storage + processing
+https://aws.amazon.com/solutions/case-studies/zillow-zestimate/
+
+Patterns + anti-patterns
+Athena
+patterns 
+- interactive adhoc querying - one time SQL queries
+- interactive analytics in notebooks for data scientist/analysts
+- analyze AWS service logs 
+- querying staging data before loading into Redshift 
+anti-patterns
+- enterprise reporting + BI workloads - better to use Redshift
+- ETL workloads - use EMR/Glue 
+- RDBMS - not meant to be used as relational/transactional DB 
+
+ElasticSearch
+patterns
+- quickly search text
+- analyze activity logs
+- analyze cloudwatch logs
+- analyze product usage data
+- analyze social media sentiments 
+- analyze data stream updates from other AWS services
+- provide customers with rich search + navigation experience
+- usage monitoring for mobile apps
+anti-patterns
+- OLTP - use RDS or DDB
+- ad-hoc data querying - use Athena
+
+EMR
+patterns
+- reduce large problems into smaller jobs + distributes the work to many nodes for parallel processing
+- log processing + analytics
+- large ETL
+- risk modeling + threat analytics
+- ad targeting + clickstream analysis
+- genomics
+- predictive analytics
+- ad hoc data mining
+anti-patterns
+- small data sets - if you can run on a single machine, do so
+- ACID transactions - use RDS
+
+Kinesis 
+patterns
+- real-time data anlytics
+- log + data feed intake + processing - submit logs to stream for processing - prevents log data from being lost if app server fails, reduces local log storage - accelerated data intake bc not batching up data on services before you submit 
+- real-time metrics + reporting
+anti-patterns
+- small scale consistent throughput
+- long term data storage + analytics
+
+Redshift 
+patterns
