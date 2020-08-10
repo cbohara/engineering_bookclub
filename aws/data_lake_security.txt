@@ -116,3 +116,6 @@ allows user that was granted perm to query
 
 no additional charge for Lake Formation
 only use underlying services - Glue crawler, S3, etc
+
+Lake formation
+https://aws.amazon.com/blogs/big-data/getting-started-with-aws-lake-formation/

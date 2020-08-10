@@ -665,3 +665,125 @@ anti-patterns
 
 Redshift 
 patterns
+- OLAP
+- store historical data
+- analyze sales for multiple products
+- aggregation metrics
+anti-patterns
+- small data sets
+- OLTP
+
+Quicksight
+patterns
+- visualize data via interactive ad-hoc exploration 
+- publish dashboards
+anti-patterns
+- highly formatted canned reports
+- ETL
+
+Sagemaker
+patterns
+- forecast/predictions
+anti-patterns
+- very large data sets - currently does not support TB scale - need to use EMR instead
+- need full control bc Sagemaker is a managed service
+
+###
+Subdomain 4.3: Select the appropriate data visualization solution for a given scenario
+###
+visuals - graphical rep of data - can only contain 1 data set
+analysis - container for a set of related visuals/stories
+you can use multiple data sets in an analysis 
+
+https://docs.aws.amazon.com/quicksight/latest/user/working-with-analyses.html
+ML Insights - propose potentially useful visuals 
+sheets - set of visuals viewed together in a single page - can have multiple sheets (pages) per analysis
+stories - slide show containing set of 1+ scenes (captured visuals) - use to step through different iterations of analysis
+dashboard - read only snapshot of analysis - share with other users for reporting purposes
+
+https://docs.aws.amazon.com/quicksight/latest/user/working-with-visual-types.html
+measures + dimensions
+measure - numeric value
+ex: product cost
+dimension - items or attributes related to measures - used to partition measures
+ex: date product was purchased 
+quicksight auto IDs a field as measure or dimension based on data type
+if you want a number (ex: zip code) to be a dimension, give the field a string data type
+
+filtering
+https://docs.aws.amazon.com/quicksight/latest/user/filtering-visual-data.html
+refine the data displayed in a visual
+applied before any aggregate functions 
+by default a filter applies only to the visual that was selected when the filter was created, but you can apply it to other visuals later
+
+sort 
+change sort order 
+available for most visual types
+
+drill down
+drill down to see data at different levels
+ex: drill down on state of CA, you see data of all cities in CA
+
+Kibana
+part of ElasticSearch ecosystem
+used for log + time-series analytics, app monitoring, + operational intelligence
+interactive charts
+powerful geospacial capabilities 
+pre-built aggregation + filters 
+easily accessible dashboards 
+
+# refreshing data based on use case
+real-time - use Amazon ES with Kibana
+interactive, ad-hoc - Quicksight - refresh SPICE at any time, not as straightforward when not stored in SPICe
+EMR notebooks - data is refreshed each time you run the notebook - can be resource-intensive process
+
+# data delivery + access methods
+does user need interactive view? or static dashboard?
+dashboard link? email attachment?
+direct access to source data that feeds viz? or just a view?
+collaboration?  perhaps via notebooks?
+view on mobile device?
+combine data from multiple sources?
+
+use cases
+CS managers need to drill into values on viz + perform ad-hoc queries on data - interactive report using ElasticSearch view
+Website shared volume - embed Quicksight dashboard into website that can be accessed via mobile phone
+PM needs EOW summary - send static report via email link
+Data scientists need to viz results of model - EMR notebooks
+
+Analysis + viz = all about getting value of the data
+
+########
+Domain 5: Security
+########
+
+####
+Subdomain 5.1: Select appropriate authentication and authorization mechanisms
+####
+IAM - auth via users, groups, + roles
+identity-based policy - attached to IAM - is the user/group/role permitted to do this?
+resource-based policy - attached to the resource - ex: bucket policy - specifies what users/group/role can do 
+
+IAM with Redshift
+does not support resource based policies 
+provides service-linked roles for other AWS services
+can avoid user name + passwords by using IAM creds to log into DB
+can also access via SSO via SAML 2.0 ID provider (we can use Okta)
+Redshift assumes an IAM role when data is loaded into a cluster using a COPY command or exporting data using UNLOAD
+
+IAM with DDB
+restrict access at ID level 
+restrict access to data items + attributes 
+
+Network isoltion using VPC (virtual private cloud)
+ENI = elastic network interfaces - virtual interface attached to an instance 
+Max security = launch service in private subnet = no public IP space or internet gateway
+Security group = define inbound + outbound traffic rules applied to an instance
+Can create a private endpoint for S3 in subnet to give EMR cluster direct access to data in S3
+NAT Gateway in public subnet > internet gateway > interact with other AWS services like DDB and KMS
+network access control list (ACL) = optional layer of inbound + output rules applied to the subnet 
+
+###
+Subdomain 5.2: Apply data protection and encryption techniques
+###
+in-transit data encryption - encrypt data in transit - 
