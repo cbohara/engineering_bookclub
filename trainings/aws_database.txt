@@ -1,0 +1,10 @@
+Intro
+
+CAP theorem - only get 2 out of 3
+consistency - ensuring all systems produce the same response
+availability - ensuring that every request receives a response
+partition tolerance - ensuring that the system can survive the loss of a partition - must have in distributed systems
+
+CA - consistency + availability - possible on a single system but not realistic
+AP - available + partition tolerance - distributed nonrelational database systems - how do we recover without consistency after node failures?
+CP - consistency + partition tolerance - sacrifice availablity for consistency - ex: financial data - easier to design
