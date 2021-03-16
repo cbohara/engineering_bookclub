@@ -1,10 +1,55 @@
+Planning and Designing Databases on AWS
+
 Intro
 
 CAP theorem - only get 2 out of 3
-consistency - ensuring all systems produce the same response
-availability - ensuring that every request receives a response
-partition tolerance - ensuring that the system can survive the loss of a partition - must have in distributed systems
+C - consistency - ensuring all systems produce the same response
+A - availability - ensuring that every request receives a response
+P - partition tolerance - ensuring that the system can survive the loss of a partition - must have in distributed systems
 
 CA - consistency + availability - possible on a single system but not realistic
 AP - available + partition tolerance - distributed nonrelational database systems - how do we recover without consistency after node failures?
-CP - consistency + partition tolerance - sacrifice availablity for consistency - ex: financial data - easier to design
+CP - consistency + partition tolerance - sacrifice availablity for consistency - like financial data - easier to design
+
+PIE theorem - only get 2 out of 3
+P - pattern (query) flexibility - ensuring that the system supports random access patterns and one-time queries - Do you want the option to ask new, unanticipated questions of your data?
+I - infinite scale - ensure that the system can gracefully scale without practical limits
+E - efficiency - ensuring that the system delivers required latency at all times
+
+PE - pattern flexibility + efficiency - relational databases
+EI - infinite scale + efficiency - systems where pattern flexibility is sacrified in favor of a highly scalable efficient app - NoSQL
+PI - pattern flexilibity + infinite scale - systems where efficiency is sacrified in favor of a flexible + scalable app - data warehouse 
+
+transactional compliance
+transaction = logical unit of commands that are executed against a database
+if I am changing a piece of data, and someone else comes along and tries to change the same piece of data, what happens?
+
+ACID compliance
+A - atomicity - all or nothing - complete success or complete failure + rollback
+C - consistency - traditionally applies to relational databases via constraints
+I - isolation - one transaction cannot interfere with another - accomplished via locks - write lock = other person cannot change at the same time - pesimmistic type of lock = avoid anyone else doing anything else when locked down
+D - durability - ensure that changes are permanent - traditionally in the transaction log
+
+BASE compliance
+BA - basically available  - changes on one system are made available immediately
+S - soft state - partial consistency is accepted
+E - eventually consistent - all systems will eventually receive changes
+
+Workload requirements
+Data storage - What type of data store?
+Data usage - How will the data be used?
+Data volume - How much?
+Data velocity - How quickly will it change?
+Data variety - How different is the data from one input to the next? 
+Data longevity - How cold does the data get? How long do we need to store it for quick access?
+Data durability - knowing that the data is always there, avoid user error
+Data availability - knowing your data will be accessible when needed in the worse case scenario - by avoiding single points of failure, you incur cost
+
+Design considerations
+performance - latency for reads? read/write throughput? what percentage of the traffic coming in is read vs write? perhaps offload reads to a read replica and focus writes on the main node. how much concurrency are we managing?
+scaling - autoscale to meet capacity
+sizing - determine the appropriate instance type + scaling vert vs horiz
+high availablity - read replicas, clustering, multi-AZ deployment, multi-region deployment
+networking - VPC configs - public/private subnets 
+backup + recovery - how much data can be lost? how quickly must the system be operational? design for failure
+security + compliance - how should the data be secured? how do we adhere to compliance?
