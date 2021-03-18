@@ -118,3 +118,10 @@ Real time data access
 
 Which ElasticCache engine and config would enable scaling vertically with no data loss nor downtime
 C - ElasticCache for Redis, cluster-mode enabled
+
+Redshift w/ Spectrum
+Keep raw data in S3 to query via Spectrum
+Keep aggregated data in Redshift for reporting
+
+Big advantage of Redshift over Athena these days is the workload management
+Redshift allows for different priority queues vs Athena only has a single queue per account
