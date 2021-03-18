@@ -53,3 +53,68 @@ high availablity - read replicas, clustering, multi-AZ deployment, multi-region 
 networking - VPC configs - public/private subnets 
 backup + recovery - how much data can be lost? how quickly must the system be operational? design for failure
 security + compliance - how should the data be secured? how do we adhere to compliance?
+
+Why use nonrelational?
+Trade-offs you want to make:
+Speed over consistency
+Flexible over strict schema
+Native document storage vs data normalization
+Relationship nevigation over freeform querying
+Speed over persistence
+
+RDS high availability 
+Only sychrononous replication occurs to secondary instance - all other replication to read replicas is async
+
+How traditional RDS databases work in monolithic architecture
+Page read from disk and brought into memory for a user to update
+Once user has updated the page, the page is considered dirty because memory doesn't match disk
+Engine doesn't immediately write dirty pages to disk
+Engine instead optimizes by writing dirty pages to disk in batches via process of checkpointing 
+Tracks via transaction logs 
+
+What Aurora offers as cloud native DB
+Cluster volume is the same across all the instances that exist - essentially the transaction log is now the database
+Do fewer I/Os
+Minimize network packets
+Cache prior results
+Offload the database engine by decoupling storage and compute - data is independent of database instance
+
+Aurora MySQL parallel query clusters
+Allows queries to run in parallel
+Great for OLAP efficiency 
+Boost performance on very large or complex operations
+
+Aurora global database
+1 single master writer 
+Can have up to 15 read replicas per region, up to 5 regions
+Always good to have at least 1 read replica in another AZ for failover
+
+Aurora serverless
+https://aws.amazon.com/about-aws/whats-new/2020/11/aws-database-migration-service-now-supports-aurora-postgresql-serverless/
+
+DynamoDB
+Global tables
+Quickly and easy add regions 
+
+DynamoDB DAX
+cache cluster between DynamoDB and client
+client only has to point to DAX and if there is a hit in the cache, then no need to read from DynamoDB, else go read from DynamoDB directly
+
+estimating RCU and WCU
+set to on demand and monitor to determine appropriate RCU + WCU
+later provision based on RCU and WCU during on demand mode
+
+Neptune demo
+https://aws.amazon.com/blogs/database/let-me-graph-that-for-you-part-1-air-routes/
+
+Redis
+Built in geospatial commands
+https://redislabs.com/redis-best-practices/indexing-patterns/geospatial/
+Smarter recovery in case shards go down vs Memcache
+Common use case is to have a side cache, but some argue you can use it as your main database
+
+What ElastiCache offers
+Real time data access 
+
+Which ElasticCache engine and config would enable scaling vertically with no data loss nor downtime
+C - ElasticCache for Redis, cluster-mode enabled
