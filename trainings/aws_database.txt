@@ -112,6 +112,7 @@ Built in geospatial commands
 https://redislabs.com/redis-best-practices/indexing-patterns/geospatial/
 Smarter recovery in case shards go down vs Memcache
 Common use case is to have a side cache, but some argue you can use it as your main database
+https://stackoverflow.com/questions/51050743/redis-vs-dynamodb-geolocation-tracking
 
 What ElastiCache offers
 Real time data access 
