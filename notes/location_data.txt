@@ -1,0 +1,108 @@
+https://acloudguru.com/blog/engineering/location-based-search-results-with-dynamodb-and-geohash
+geohash divides world into squares in a grid
+hash too long = too zoomed in = squares too small = search more squares for results
+has too short = too zoomed out = squares too big = returning too many items in the square + later filter
+to find a retail store/coffee shop - resolve 1-10 KM searches using 5-7 characters
+
+https://docs.couchbase.com/server/current/fts/fts-geospatial-queries.html
+box/rectangle - 2 coordinate pairs - one is the top left and the other the top right 
+radius - 1 coordinate as center + distance as radius
+polygon - 3+ more coordinate pairs that create polygon outline 
+
+https://itnext.io/will-it-scale-lets-load-test-geohashing-on-dynamodb-fbdc612d9ec3
+DDB geo lib manages underlying DDB table - setting partition key + secondary index to manage lookups
+
+typically each search request runs 8 queries = doesn't get all the results needed in a single request from the table
+this is because once the initial geohash square is identified, the algorithm also needs to know what's in the 8 surrounding squares
+bc the item might be on the edge of the center square or the radius specified may cover more than 1 square
+
+performance depends on hash key length
+shorter hash = larger square
+longer hash = smaller square
+ex: locations spread across the globe but use a long hash and a large search radius, the performance would be much worse
+vs shorter hash with a smaller search radius bc less filtering
+
+stress test
+runs for 2 min * 20 users/second aka 20 requests/second = 2400 requests total
+able to scale great but at what cost?
+
+more locations, more writes
+initial location list is static = all activity are reads
+note this library is not good for dynamic locations (ie following a user)
+it is good for static locations (ie home location)
+this is because geohash is used as a partition key so it's not possible to update locations for items already in the table
+you would need to delete + recreate
+
+global tables
+spread load across multiple regions
+users writing from around the world
+
+API gateway caching
+current approach= user supplies their lat/long
+Lambda function computes geohash (z-index) + finishes lookup
+unless 2 users are sitting on top of each other, they will have slightly different coordinates even though their position computes the same geohash
+as is we won't be able to leverage request caching at the API level
+
+what if we pull the hashing computation out of the Lambda itself and instead store in a client side lib?
+then a users request goes from specifying the specific lat/long to a geohash 
+users from many different coordinates will collapse/bucket into a single geohash index = reuse their requests in a cache to reduce load on DB
+can reuse the response of the first client request to serve the second request
+
+given locations are not changed often, we can cache for a long time and set a high TTL = requests are remembered for several days
+API Gateway creates a cache on all GET requests by default when you enable caching 
+then what is the point of the Lambda job if API Gateway is doing all the work?
+we can connect API Gateway directly to DynamoDB table to query geohash 
+
+https://aws.amazon.com/blogs/compute/implementing-geohashing-at-scale-in-serverless-web-applications/
+geohashing - converts geographic info into alphanumeric hash
+geohash - ID a rectangular area around a fixed point
+the length of the hash determines the precision of the area identified
+hierarchical search - add a letter, zoom in more
+S2 geometry lib - solves issue with gap
+
+for their use case, there is a fixed lat/long
+dynamodb-geo library uses hashKey as the primary key in the underlying table
+many geolocation implementations use static data = list of retail store, home association
+
+app receives users current lat/long - then uses S3 geometry library to convert this to a geohash key
+the app then subscribes to this geohash topic so it will be notified when questions are asked in this geohash
+users of the same geohash area receive notifications when new questions are asked nearby
+
+as a user moves, the front end app can detect if they moved from one geohash cell to another
+if so, the app unsubscribes the user from the outdated geohash ID and subscribes to the new
+this ensures the moving customer is always listening to questions near their current location
+
+dynamodb-geo lib design - uses geohash as primary key, but dev chooses sort key
+sort key identifies items that have the same geohash (in the same square) as uniq - can also use for sorting + pagination 
+
+their app uses concat userid-timestamp pattern as range key to deal with 2 data access patterns
+finding by user- using the begins_with operator, you can ID questions asked by a specific user
+sorting results by time added 
+
+TTL - create a custom numeric attribute in the table set as Unix timestamp
+specify attributes for behind-the-scenes cleanup (no cost)
+
+https://github.com/Sigm0oid/dynamodb-geo.py
+hashKeyLength = # of signficant digits 
+long hash = small geographic area
+short hash = large geographic area
+if data is sparse + length is too long (partitions are too zoomed in for geographic region), more RCUs used since empty queries will be executed and no data returned
+if data is dense + length too short (partitions are too wide for geographic region), more RCUs will be needed to read a hash key + grab a lot of unnecessary data which will be filtered out
+the wider your query = larger geographic area = the shorter the hash
+the more focused your query = smaller geographic area = longer the hash
+source Java version uses hashKeyLength 6 by default
+
+https://aws.amazon.com/blogs/compute/building-a-location-based-scalable-serverless-web-app-part-2/
+geo-location data in questions DDB table
+
+HTTP APIs using Amazon API Gateway
+HTTP APIs significantly cheaper than REST APIs 
+
+app searches within 5 miles so they use a 5 character hash
+this means you can compare the users current location using their geohash and quickly find the appropriate DynamoDB partition 
+
+https://aws.amazon.com/blogs/compute/building-a-location-based-scalable-serverless-web-app-part-3/
+users are asking questions and want an aggregated response - not each individual response
+answer is added to answers DDB database with DDB streams enabled
+lambda job then updates the aggregate in the questions table
+
