@@ -105,4 +105,3 @@ https://aws.amazon.com/blogs/compute/building-a-location-based-scalable-serverle
 users are asking questions and want an aggregated response - not each individual response
 answer is added to answers DDB database with DDB streams enabled
 lambda job then updates the aggregate in the questions table
-

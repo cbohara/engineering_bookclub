@@ -1,0 +1,21 @@
+aws lambda get-account-settings --region us-east-1 --query AccountLimit.ConcurrentExecutions
+previously 5000
+now 8000
+
+aws lambda get-account-settings --region us-east-1 --query AccountUsage.FunctionCount
+189
+
+https://aws.amazon.com/blogs/compute/managing-aws-lambda-function-concurrency/
+“If you set a concurrency limit for a specific function, then that function’s concurrency limit allocation is deducted from the shared pool and assigned to that specific function. AWS also reserves 100 units of concurrency for all functions that don’t have a specified concurrency limit set.”
+
+“On occasion, due to issues with applications I’ve managed in the past, I’ve had a need to disable a certain function or capability of an application. By setting the concurrency reservation and limit of a Lambda function to zero, you can do just that.
+
+With the reservation set to zero every invocation of a Lambda function results in being throttled. You could then work on the related parts of the infrastructure or application that aren’t working, and then reconfigure the concurrency limit to allow invocations again.”
+
+https://docs.aws.amazon.com/lambda/latest/dg/monitoring-metrics.html
+
+Invocations – The number of times your function code is executed, including successful executions and executions that result in a function error
+
+Throttles – The number of invocation requests that are throttled. When all function instances are processing requests and no concurrency is available to scale up, Lambda rejects additional requests with TooManyRequestsException. Throttled requests and other invocation errors don't count as Invocations or Errors.
+
+ConcurrentExecutions – The number of function instances that are processing events. If this number reaches your concurrent executions quota for the Region, or the reserved concurrency limit that you configured on the function, additional invocation requests are throttled.

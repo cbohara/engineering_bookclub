@@ -1,0 +1,210 @@
+problems with virtual machines - lots of resources in each VM that aren't necessary
+container solution - don't need a full blown OS, share the underlying computer's OS
+very lightweight, can have many containers on a single machine, fast to spin up
+more secure bc less things running = less attack surface = less likely to get hacked
+
+Twelve-factor app
+portability - easily works from laptop to cloud 
+how to scale? simply add another container
+continuous deployment - work in dev, then run in QA test env, then deploy in prod
+
+monolith vs microservice
+monolith disadvantages
+- one bug in one component will have cascading impact in other components 
+- can't scale different components independently
+
+microservice advantages 
+- decouple components into seperate APIs
+- easily reuse components 
+
+Dockerfile = file in which we write template details
+image = read-only template that contains a set of instructions for creating a container that can run on the Docker platform
+container = running instance of an image
+if you must update the application code or apply a patch, you build a new image and redeploy it
+
+yum -y update = update OS 
+yum -y install httpd = install apache web server
+expose port 80 = HTTP
+expose port 443 = HTTPS
+COPY shell script into container
+RUN shell script = install applications
+CMD = starts the application 
+WORKDIR = set working directory
+
+don't need to use a more abstract ubuntu instance
+keep images as simple as possible
+if I have a python app, use a python image
+lighter images = more efficient and more secure
+
+EC2 - launch instance as jump box
+security group = firewall = monitors incoming/outgoing traffic and permits/blocks data packets based on security rules
+
+create image from Dockerfile
+docker build -t (tag) webserver:v1 . (current dir)
+
+multi-stage Dockerfile
+at one stage, creates an image
+second stage, instead of using a big root image, just use smaller image
+advantage = generates smaller images
+read more:
+https://docs.docker.com/develop/develop-images/multistage-build/
+
+repository = place to store images 
+Amazon Elastic Container Registry (ECR)
+every repo has a URI 
+step 1 - tag local image with ECR URI
+docker tag webserver:v1 <ECR_URI>:webserverv1
+ex: docker tag webserver:v1 012345678910.dkr.ecr.us-east-1.amazonaws.com/webserverv1:webserverv1
+step 2 - push image to ECR
+docker push 012345678910.dkr.ecr.us-east-1.amazonaws.com/webserverv1:webserverv1
+
+kubernetes 
+orchestrates containers 
+pods = layer of abstraction - containers are deployed in a pod
+volumes = data storage
+services = front end for multiple pods
+
+Kubernetes manifest files = PodSpecs
+kind: Job
+https://kubernetes.io/docs/concepts/workloads/pods/
+cannot simply point to existing Dockerfile
+need to rewrite container details to meet PodSpec guidelines
+
+ConfigMaps = config files
+https://v1-19.docs.kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/
+kind: ConfigMap
+have sep ConfigMap for dev and prod
+
+kind: Secret
+need to base64 passwords before entering into the config
+K8 then encrypts secrets file 
+
+kind: Deployment 
+https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
+specify deployment details
+
+pod scheduling
+volume filter - satisfying volume requirements + contraints 
+resource filters - satisfying resource rquirements = including min/max CPU/memory
+topology filters - ex specify types of EC2 nodes
+
+DaemonSet
+worker nodes = EC2 instances that run pods
+
+Fluentd - log aggregator
+https://www.fluentd.org/
+can forward logs to Cloudwatch Logs
+
+custom resource definition
+
+control plane and data plane
+control plane - master node
+- control manager = driver program = decision maker
+- cloud controller
+- scheduler = YARN
+- API server - interacts with worker nodes
+- etcd = stores changelogs of changes to cluster
+
+data plane - worker nodes
+- kube-proxy = manages networking
+- docker = runtime 
+- kubelet = communicates with control plane specifically API server
+
+how to communicate with cluster? kubectl 
+https://kubernetes.io/docs/tasks/tools/
+ssh into jump box and run commands to cluster
+shows the delta between current + desired state
+
+Namespace
+Kubernetes supports multiple virtual clusters backed by the same physical cluster
+These virtual clusters are called namespaces.
+Names of resources need to be unique within a namespace, but not across namespaces.
+easily share resources within a namespace
+not necessarily between namespaces
+
+AWS EKS
+managed K8 service
+EKS takes care of the control plane
+User has the option to either
+- fully manage worker nodes as EC2 instances
+- fully turn over management as Fargate instances
+- goldilocks option = managed node group
+
+min node size = t2.medium, else may run into errors
+
+eksctl create cluster \ 
+--name EKS1 \
+--region us-west-2 \
+--version 1.18 \
+--nodegroup-name eks-cluster-workers \
+--node-type t2.medium \
+--nodes 2 \
+--nodes-min 2 \
+--nodes-max \
+--with-oidc \
+--managed \
+--enable-ssm
+
+by default EKS is deployed into a VPC
+
+if a worker node has an issue, it will be noted as degraded
+
+AWS Fargate 
+does not use EC2 instances under the hood
+uses microVM - Firecracker 
+https://aws.amazon.com/blogs/opensource/firecracker-open-source-secure-fast-microvm-serverless/
+
+EC2 instance = billed per instance
+Fargate = per resources that a pod uses
+
+need to specify Fargate profile
+if Fargate profile is not specified, will default to managed nodes on EC2 instances
+the K8 deployment script label needs to match fargate 
+
+security fundamentals
+authentication = prove who you are (ex: user ID, API token)
+authorization = what am I allowed to do?
+
+kubectl get nodes > K8 API 
+authentication - managed by AWS - IAM
+authorization - managed by K8 - role based access control
+
+kind: ConfigMap
+aws-auth
+maps IAM role/user to K8 users/groups/service
+
+create EKS cluster
+* kubectl create namespace games
+* eksctl create fargateprofile
+
+deploy app
+create deployment.yaml
+kind: Deployment
+deploy application using Fargate
+
+* kubectl apply -f deployment.yaml
+* kubectl get pod 
+show the pods
+* kubectl describe pods <POD NAME>
+need to specify namespace in commands -n, otherwise all commands are ran against default namespace
+
+will receive a cheat sheet later 
+
+to config and mange clusters use 
+
+console path
+create IAM role and attach
+simply deploy via 
+https://aws.amazon.com/quickstart/architecture/amazon-eks/
+
+steps:
+spin up EC2 instance
+download IAM authenticator
+download kubectl
+create kubectl config file
+
+permissions
+create ec2 instances = IAM
+control inbound + outbound traffic to + from nodes = security groups
+connect to the cluster API server = kubeconfig file
+add a worker node to the cluster = IAM role + kubeconfig file

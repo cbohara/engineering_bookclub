@@ -1,0 +1,3 @@
+https://www.alexdebrie.com/posts/aws-api-gateway-service-proxy/
+
+https://www.stackery.io/blog/why-you-should-use-api-gateway-proxy-integration-with-lambda/
