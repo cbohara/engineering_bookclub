@@ -208,3 +208,42 @@ create ec2 instances = IAM
 control inbound + outbound traffic to + from nodes = security groups
 connect to the cluster API server = kubeconfig file
 add a worker node to the cluster = IAM role + kubeconfig file
+
+ECR - container image repository
+Helm - package manager
+AWS CodePipeline - CI/CD pipeline
+
+kubectl = K8 cli tool
+eksctl = AWS EKS CLI tool
+
+https://kubernetes.io/docs/concepts/overview/components/
+when you deploy K8, you create a cluster
+each cluster contains at least 1 worker node
+worker machines/nodes run container apps
+worker nodes host the pods
+pods = K8 wrapper around a set of running containers with shared storage and network resources
+control plane manages the worker nodes (machine) + Pods (bunch of containers) in the cluster 
+
+with initial deploy you set min and max worker node count for cluster
+you an update the count later
+
+managed node groups automate creation of EC2 instances for EKS cluster
+middle option between manually creating EC2 instances and totally serverless Fargate option
+shows up under the config - compute section
+launches EC2 instances that are managed by an autoscaling group
+
+in deployment config describe desired state 
+use apply command to apply config to cluster
+kubectl apply -f kubernetes/deployment.yaml
+
+service = abstract way to expose an app running on a set of pods as a consolidated service
+kubectl apply -f kubernetes/service.yaml
+
+can view deployment state by running get command
+kubectl get deployment ecsdemo-nodejs
+
+view all deployments
+kubectl get deployments
+
+can scale out the deployment by specifying the number of pod (set of containers) replicas (number of copies of the set of containers)
+kubectl scale deployment ecsdemo-crystal --replicas=3
