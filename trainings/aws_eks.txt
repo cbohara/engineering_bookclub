@@ -117,7 +117,7 @@ shows the delta between current + desired state
 
 Namespace
 Kubernetes supports multiple virtual clusters backed by the same physical cluster
-These virtual clusters are called namespaces.
+These virtual clusters are called namespaces
 Names of resources need to be unique within a namespace, but not across namespaces.
 easily share resources within a namespace
 not necessarily between namespaces
@@ -247,3 +247,181 @@ kubectl get deployments
 
 can scale out the deployment by specifying the number of pod (set of containers) replicas (number of copies of the set of containers)
 kubectl scale deployment ecsdemo-crystal --replicas=3
+
+AWS CodePipeline = general AWS GitOps tool
+pipeline1 = build docker image and store in image reposity ECR (Elastic Container Registry)
+pipeline2 = manage K8 manifest files = desired state of the app
+
+Weave Flux = specific GitOps tool for K8 clusters
+automatically ensures the state of K8 cluster matches configs in git
+Helm = K8 package manager = interact with K8 config Gitub repo + manages K8 app
+Charts = Helm packages
+
+sudo wget -O /usr/local/bin/fluxctl $(curl https://api.github.com/repos/fluxcd/flux/releases/latest | jq -r ".assets[] | select(.name | test(\"linux_amd64\")) | .browser_download_url")
+
+Service mesh
+Enables networking between K8 services
+
+Monitoring and controlling services
+Enabiling nd-to-end visibility and high availability for apps is difficult
+envoy service proxy - sidecar container used as a proxy for incoming/outgoing traffic to the primary microservice
+AWS implemented the Envoy proxy as AWS App Mesh
+App Mesh, using Envoy, allows you to have much better observability of apps + insight into networking needs
+
+example app
+dj app microservice requests list of artists from different backend genre specific services
+doesn't automatically refresh backend service list
+
+need to specify namespace in which we are working with to see the pods, deployment, and the services 
+kubectl -n prodapp get pods,deploy,service
+
+pod = group of containers deployed on the same host
+deployment = resource object that controls the desired state of the pods 
+service = group of pods running on the cluster
+
+store pod name as environment variable
+-l label so filter just by dj app
+-o specify json output
+DJ_POD_NAME=$(kubectl get pods -n prodapp -l app=dj -o jsonpath='{.items[0].metadata.name}')
+
+can essentially SSH into the running container by running this command 
+kubectl exec -n prodapp -it ${DJ_POD_NAME} bash
+
+from the dj app we are making a request to the country backend service to get a list of country artists
+curl -s country-v1:9080 | json_pp
+
+https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/
+don't need to provide the IP address can simply provide the service name 
+Kubernetes DNS schedules a DNS Pod and Service on the cluster, and configures the kubelets to tell individual containers to use the DNS Service's IP to resolve DNS names
+
+create App Mesh-enabled versions of DJ app
+first need to installl
+Helm = package manager
+deploy App Mesh controller
+create OIDC provider for the cluster
+
+App Mesh
+virtual nodes = logical pointers to K8 services or APp Mesh virtual service
+virtual services = abstraction of a real service provided by the virtual node
+app mesh sidecar = container runs next to microservice configures your pods to use App Mesh traffic rules defined for virtual nodes or virtual routers
+app mesh injector = installs as a webhook and injects App Mesh sidecar container images 
+
+add EKS package to helm
+helm repo add eks https://aws.github.io/eks-charts
+
+EKS hosts a per cluster public OpenID Connect (OIDC) endpoint which contains signing keys for JSON web tokens
+allows external systems like IAM to validate and accpet the K8 issued OIDC tokens
+OIDC federation allows you to assume IAM roles via the Secure Token Service (STS)
+enables auth with the OIDC provider, and recieve a JSON Web Token (JWT) which is used to assume an IAM role
+
+identity provider = stores + authenticates (who am I) of users to ensure the validity of their login creds across multiple platforms (like google auth)
+OpenID connect (OIDC) = auth layer (determines who I am) 
+
+create OIDC ID provider for cluster
+eksctl utils associate-iam-oidc-provider --cluster dev-cluster --approve --region ${AWS_REGION}
+associate-iam-oidc-provider - allows IAM OIDC provider for cluster = enable IAM roles for pods
+
+create IAM role for App Mesh Controller Service Account
+attach IAM policy AWSAppMeshFullAccess using ekstl util
+
+create namespace
+kubectl create ns appmesh-system
+
+create IAM role with attached IAM policy
+eksctl create iamserviceaccount --cluster dev-cluster --namespace appmesh-system --name appmesh-controller --attach-policy-arn arn:aws:iam::aws:policy/AWSCloudMapFullAccess,arn:aws:iam::aws:policy/AWSAppMeshFullAccess --override-existing-serviceaccounts --approve --region ${AWS_REGION}
+
+install AppMesh controller
+helm upgrade -i appmesh-controller eks/appmesh-controller --namespace appmesh-system --set region=${AWS_REGION} --set serviceAccount.create=false --set serviceAccount.name=appmesh-controller
+upgrade a release
+if a release by this name doesn't exist already, run an install of the release
+serviceAcount.create=false - don't create because we did so in the previous step
+serviceAccount.name=set the service account name we created above 
+
+deploy AppMesh namespace 
+kubectl apply -f /home/ssm-user/djapp/2_app_mesh/namespace.yaml
+
+enables sidecar injector 
+kind: Namespace
+appmesh.k8s.aws/sidecarInjectorWebhook: enabled
+
+create a mesh
+kubectl apply -f /home/ssm-user/djapp/2_app_mesh/mesh.yaml
+apiVersion: appmesh.k8s.aws/v1beta2
+kind: Mesh
+metadata:
+  name: dj-app
+spec:
+  namespaceSelector:
+    matchLabels:
+      mesh: dj-app
+
+so all pods with label dj-app will be able to communicate on the mesh
+
+create virtual nodes and services
+required in order for AppMesh to work
+
+use -n to filter by namespace
+kubectl -n prodapp get virtualnodes
+
+aws appmesh list-meshes
+
+view all objects within namespace
+kubectl get all -n prodapp
+
+need to force pods to be recreated to inject Envoy proxy sidecars into the pods
+
+restart deployment of all services incorperated with mesh
+kubectl -n prodapp rollout restart deployment dj rock-v1 country-v1
+
+Fluent bit = log collector daemon running on EKS cluster worker nodes
+Routes data to Kinesis Firehose > Logs data to S3 > Query via Athena
+Also can send to Amazon CloudWatch container insights 
+
+create kinesis firehose
+
+create service account fluent-bit for log aggregation
+kubectl create sa fluent-bit
+
+sh-4.2$ cat ~/scripts/task2/eks-fluent-bit-daemonset-rbac.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: pod-log-reader
+rules:
+- apiGroups: [""]
+  resources:
+  - namespaces
+  - pods
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: pod-log-crb
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: pod-log-reader
+subjects:
+- kind: ServiceAccount
+  name: fluent-bit
+  namespace: default
+
+create role and role binding for Fluent Bit to use
+kubectl apply -f ~/scripts/task2/eks-fluent-bit-daemonset-rbac.yaml
+
+create ConfigMap to define Fluent Bit log parsing and routing parameters
+kubectl apply -f ~/scripts/task2/eks-fluent-bit-configmap.yaml
+
+create Fluent Bit K8 daemonset
+kubectl apply -f ~/scripts/task2/eks-fluent-bit-daemonset.yaml
+
+check status of setting up daemon
+kubectl get daemonset fluentbit
+
+setup Container Insights using a quick start template
+curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/latest/k8s-deployment-manifest-templates/deployment-mode/daemonset/container-insights-monitoring/quickstart/cwagent-fluentd-quickstart.yaml | sed "s/{{cluster_name}}/dev-cluster/;s/{{region_name}}/AWS_REGION/" | kubectl apply -f -
+
+
+Setup 
+kubectl apply -f ~/scripts/task5/x-ray-daemonset.yaml
