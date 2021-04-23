@@ -422,6 +422,43 @@ kubectl get daemonset fluentbit
 setup Container Insights using a quick start template
 curl https://raw.githubusercontent.com/aws-samples/amazon-cloudwatch-container-insights/latest/k8s-deployment-manifest-templates/deployment-mode/daemonset/container-insights-monitoring/quickstart/cwagent-fluentd-quickstart.yaml | sed "s/{{cluster_name}}/dev-cluster/;s/{{region_name}}/AWS_REGION/" | kubectl apply -f -
 
+Security lab
+integrate AWS IAM for authentification (who am I?) with K8 role based access control (RBAC) for authorization (what can I do?)
 
-Setup 
-kubectl apply -f ~/scripts/task5/x-ray-daemonset.yaml
+aws-auth ConfigMap
+map EksNodeRole IAM role to system:bootstrappers and system:nodes K8 RBAC groups
+EksNodeRole IAM role is applied to the EC2 instances
+username in RBAC = system:node:ip-10-10-119-55.ec2.internal given the IP address
+
+recommend to have a dedicated IAM role for creating EKS clusters + keep that info as secure as AWS root account
+in the lab its the BastionHostIamROle
+
+always create a backup copy just in case :) 
+cp ~/.kube/config ~/.kube/config.back
+
+kubectl create deployment nginx --image=nginx -n web
+kubectl expose deployment nginx --port=80 --target-port=80 --name nginx --type=LoadBalancer -n web
+
+*Connect K8 to other AWS APIs*
+create IAM role with a trust relationship that allows K8 service to assume the role
+create temp container that uses the service account + execute AWS CLI commands to access S3 APIs from within the container
+
+steps:
+1 - create IAM openID connect (OIDC) ID providere - allows you to create trust relationship between AWS account + K8 RBAC
+eksctl utils associate-iam-oidc-provider --cluster dev-cluster --approve --region ${AWS_REGION}
+
+2- create IAM role and associated K8 service account
+can provide multiple --attach-policy-arn flags
+eksctl create iamserviceaccount --name aws-s3-read --namespace default --cluster dev-cluster --attach-policy-arn arn:aws:iam::aws:policy/AmazonS3ReadOnlyAccess --approve --region ${AWS_REGION}
+
+3 - create new container that uses aws-s3-read service account
+kubectl run my-shell --generator=run-pod/v1 --rm -i --tty --image amazonlinux --serviceaccount aws-s3-read -- bash
+
+4 - install AWS CLI
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+yum install unzip less groff -y
+unzip awscliv2.zip
+./aws/install
+
+5 - check connection with s3
+aws s3 ls 
