@@ -128,3 +128,4 @@ provides notebook interface DS is familiar with
 scaling ML on K8 with SageMaker
 https://pages.awscloud.com/Scaling-Machine-Learning-on-Kubernetes-and-Kubeflow-with-SageMaker_2020_0514-MCL_OD.html
 https://github.com/shashankprasanna/kubeflow-pipelines-sagemaker-examples
+https://github.com/kubeflow/pipelines/tree/master/components/aws/sagemaker
