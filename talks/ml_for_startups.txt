@@ -1,0 +1,130 @@
+AWS ML/AI startup day
+https://aws.amazon.com/training/learn-about/machine-learning/
+
+--
+
+cofounder chat
+https://whylabs.ai/about
+https://jaxon.ai/about-us/
+https://www.wombo.ai/
+
+--
+
+pain points for each role in the ML team
+DS - I really wish I had a pathway to prod
+MLEng - I really wish I didn't have to maintain someone elses' model
+DEng - I really wish we used schedmas
+Ops - I really wish there was a test to know if this model is working
+
+modern ML involves combining structured + unstructured data
+don't delete data ever - compute is more expensive than storage
+
+need safe place for DS to play - data lake
+unblock DS by providing notebooks to swim around in data lake
+
+from prototype to production = MLOps
+is the model changing over time? how do you observe that?
+best practice is to transform raw into a defined schema 
+
+--
+
+how to accelerate models to prod with SageMaker
+sagemaker training involves S3 bucket > docker container running in EC2 instances
+writes artifacts to s3
+provides logging to Cloudwatch Logging
+
+levels of abstration
+highest = built in algorithms = just need to bring your own data 
+medium = script mode = bring your own data and training code in the form of a python script
+lowest = bring your own data, code, and container
+
+when running locally, how do I ensure it will run in sagemaker?
+leverage local mode that launches mock sagemaker container in local dev environment
+can store results in S3 and then read in from AWS sagemaker container
+
+leverage sagemaker spot training 
+cheaper
+general ML models faster
+detects bottlenecks and issues during training in real time
+makes ML learning transparent
+sagemaker debugger profiler provides real time feedback from training jobs
+
+online vs offline inference
+online - sagemaker hosting - can create long running microservice that can feed ML inference in real time 
+offline - leverage spot = cheaper - running in batch not real time
+
+automated deployment
+ds define pipeline for model dev and quality testing > promote to prod in model registry
+dev ops tools triggers based on model registry > kicks off prod 
+
+--
+
+hardware neds for training and inference are different
+https://towardsdatascience.com/choosing-the-right-gpu-for-deep-learning-on-aws-d69c157d8c86
+
+large training datasets - what are my storage options?
+fully managed and optimized Sagemaker cluster
+1. moderate and large data sets = store in S3 
+file mode - copy entire dataset to local volume or 
+pipe mode - stream in from S3
+2. scalable shared file system = store in EFS
+can be use by multiple services
+
+high level sagemaker
+writing training script in python
+use sagemaker SDK to initiate training
+provision containers in cluster based on config of CPU/GPU instances
+spin down automatically when done
+
+--
+
+Demystifying K8 for ML Dev and Data Science
+https://towardsdatascience.com/kubernetes-and-amazon-sagemaker-for-machine-learning-best-of-both-worlds-part-1-37580689a92f
+what are containers and why kubernetes for ML
+how to scale
+
+simple process - launch EC2 instance using AWS DL AMI and store to local files 
+
+common components
+compute - CPUs, GPUs
+storage - local, s3
+ML framework - PyTorch, Sagemaker, etc
+
+challenges with simple approach
+difficult to create reproduceable envir
+resource under utilizations
+difficult to share model with others
+
+ML stacks are complex!
+conatiners for custom ML environment are lightweight, portable, scalable, consistent
+aws offers deep learning containers - don't have to think about when using SageMaker
+
+how do we scale ML?
+image registry - AWS ECR
+management - AWS ECS and EKS
+compute - AWS EC2
+
+EKS = operating system for a cluster
+request desired state and K8 makes it happen
+K8 was built for microservice deployment - not for batch jobs
+
+challenges with K8 for ML = not DS friendly
+no note book experience
+no ML experiment + workflow management 
+no ML specific features 
+
+Kubeflow = helps make K8 friendly for ML
+simplifies AI training and inference deployments
+beter utilization of CPU and GPU resources on the clsuter
+automatic scaling to heterogenous GPUsa nd multi-GPU nodes
+
+node = EC2 instance in cluster available to run jobs
+cli command
+kubectl get nodes 
+
+Kubeflow = app runs on top of K8
+provides notebook interface DS is familiar with 
+
+scaling ML on K8 with SageMaker
+https://pages.awscloud.com/Scaling-Machine-Learning-on-Kubernetes-and-Kubeflow-with-SageMaker_2020_0514-MCL_OD.html
+https://github.com/shashankprasanna/kubeflow-pipelines-sagemaker-examples
