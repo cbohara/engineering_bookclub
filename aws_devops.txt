@@ -1,0 +1,21 @@
+CI = continous integration
+dev regularly merge their code changes into a central repo
+after checking in code, automated builds and tests are run
+goals = find and address bugs quickly and reduce time it takes to release new software
+
+CD = continuous delivery/deployment
+delivery
+every code change is auto built, tested, and then deployed to a non-prod testing environment
+manual approval is required before pushing to prod
+
+deploy
+auto deploy to prod so long as it passes tests
+
+code > test > deploy
+
+CI/CD pipeline is created using AWS CodePipeline
+CodePipeline includes
+- CodeCommit = CI service that starts the pipeline with each code change
+- CodeDeploy = continuous deployment service taht installs the app on the infrastructure
+- Lambda to automate + control deployment of new code to provisioned environ
+
