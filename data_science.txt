@@ -1,0 +1,236 @@
+AWS Digital Course - The Elements of Data Science
+
+course overview
+techniques for manipulating and pre-processing data
+exploratory analysis
+training + evaluating ML models
+visual and statistical analysis techniques
+methods for detecting and remedying overfitting
+
+### Intro to the Elements of Data Science
+
+goal of DS is to uncover actionable insights from seemly disconnected pieces of info
+ML = set of of algo to improve predictions by learning from large amounts of input data
+the input data must be specific to the problem you want to solve
+ML solution is only as good as the data that is driving it = high quality data necessary
+
+learning in machine learning refers to estimating the underlying function, f
+what is an underlying function? the mechanism used to define a specific target value based on input data attributes
+to establish the underlying function, you will use the training data set 
+training data set = provide a large amount of correctly labeled data = mapping input to expected output
+goal = given a training data set, find the best approximation of the underlying function
+best approximation = the machine learning model 
+
+how do we define best approximation?
+there are different metrics based on the type of model
+ultimately will select the appropriate metrics based on the specific problem
+
+prediction result - allows you to take action
+ex: home location prediction probability
+
+use ML when conventional programs are not available to handle given the available data 
+this may be why home location model is not a best use case - this can be a simple algo
+
+just like humans learn/improve based on experience
+more data > improve model
+
+types of ML algos
+supervised learning
+- human labels training data with target
+- target variable used to determine the truth
+- just like a teacher providing the correct labeling to the child
+- 2 categories of supervised learning
+-- regression - always a numerical value (ex: avg final grade for a chemistry class) 
+-- classification - choose options (ex: pass/fail outcome for a chemistry class
+
+unsupervised learning
+- only a collection of features but don't know the outcome
+- no involvement of human
+
+semi-supervised learning
+- have a mixture of labeled and unlabeled data 
+
+reinforcement learning 
+- use rewards/penalities to help the ML algo learn 
+
+ML workflow:
+formulate problem >
+data collection + exploratory analysis + data preprocessing + feature engineering >
+model training + model evaluation + model tuning + model debugging >
+productionisation 
+
+ML workflow above is very much an iterative process
+data collection - even if you have a large set of historical data, you may need more data for the specific business problem
+exploratory analysis - identify useful data points
+data preprocessing - clean the data, remove outliers, filling in missing values 
+feature engineering - more features are created from raw data + also used in modeling stage
+
+concepts of ML projects
+dataset itself - need large amount of high quality data 
+in practice the data must be partitioned between training + model validation
+want to use data that is not groomed/selected for model validation process
+
+definitions
+features = attributes = associated characteristics that define the object
+dimensionality = # of features (characteristics) are involved
+label = target = outcome
+
+IMPORTANT - an abundance of high quality data is required for building successful machine learning models
+ensure consistency of data over time - is the data we are using with the problem we need to solve?
+accuracy - need to define features correctly to ensure expected target/label
+noisy - lots of fluctuations from input and output 
+missing - lots of ML algos can't deal with missing/impartial data - gotta provide the feature-label mapping
+outliers - may be errors, typos or may be real and just random
+
+model fitting 
+good fit - fits the data points precisely
+underfitting
+- too simple
+- too few features
+- model is just not flexible to catch the features in the data
+- failure to capture important features
+- lack of fit in lots of regions
+overfitting
+- too complex/over-engineered
+- too many features
+- model is learning a lot from noisy data which may not exist in production
+- failing to generalize
+- model performs high accuracy on training data
+- but when applied to testing data or put in prod, performance is much worse
+- means the model is too flexible for the amount of training data
+- too flexible = too many features
+- memorize the noise with the data, and then will try to extrapolate the noise to the real case
+- high variance - small amount of change in training data leads to a lot of changes in the model
+
+Amazon Sagemaker - addresses need for speed + scalability 
+
+linear methods 
+- used in ML due to their simplicity
+- input variables return just 1 answer
+linear regression - target outcome is numeric
+logistic regression - target outcome is catagorical
+
+linear regression - univariant
+- only 1 input and 1 output
+- ex: try to relationship between price of a house and the property area
+- error is the distance between the data point and predicted value
+linear regression - multivariant
+- many inputs to predict 1 output
+- scikit-learn implementation = sklearn.linear_model.LinearRegression
+https://scikit-learn.org/stable/
+
+logistic regression 
+- response variable is binary
+- ex: yes or no
+- connect value of the feature to the binary output
+- probability is really good at quantifying yes or no
+- probability represents distance from yes (1) or no (0)
+- link binary response to combo of features with different weights
+- estimate the probability if the input belongs to 1 of 2 groups
+- vulnerable to outliers of training data = poor model
+- scikit-learn implementation = sklearn.linear_model.LogisticRegression
+
+### Problem Formulation and Exploratory Data Analysis
+
+transforming business problem to ML problem that can be solved with an algo
+what is the problem you are trying to solve?
+ex: is the customer credit card transaction fraudulent?
+
+what is the consequence of failing to label correctly?
+ex: is it better if you aren't sure and to let the transaction go through? or better to label it as fradulent?
+
+what is the business metric you are trying to solve for?
+ex: avoid missing revenue by allowing fraudulent transactions through - if so want to label as fradulent generously
+ex: otherwise if customer satisfaction is the end goal, then want to be safe rather than sorry
+
+is ML the appropriate approach?
+sometimes a simple rule based approach is more sufficient - be simple first
+ex: determining home location should be simply rule based approach
+
+what data is available?
+is a high quality big data set available?
+acquiring new data can be a big, timely undertaking so need to plan accordingly
+
+what kind of ML approach is appropriate?
+determining which algo is used is important for training 
+always good to feed into a few diff algos to see the outcome
+
+what are your goals?
+spend the right amount of time achieving the goal = MVP
+
+data collection
+need historical + continuously needing new data
+need A/B testing data
+need to monitor performance of the model to ensure it is still operating as expected
+
+sampling - setting subset for training + testing data set
+labeling - identify outputs of your model - used for supervised machined learning 
+instance = example = data point
+
+sampling 
+must be representative of the population
+best to get a random sample
+improve unbias likelihood
+stratified sampling - applies random sample to each sub population separately
+be mindful of seasonality + trends that may be transient and always changing
+
+avoid leakage 
+train/test bleed = inadvertent overlap of training + test data when sampling to create data sets 
+training data is labeled
+test data is used to evaluate the machine learning model
+model test will show better performance than reality if using the training data because the model knows the specific target already
+
+labeling isn't easy but labels are the gold standard from which a ML model learns
+
+labeling = first step in any supervised learning problem
+in textbook examples super simple 0 or 1, hotdog or not a hotdog
+often times labels are not available in dataset + requires human manual involvement
+manual process = tedious
+need detailed instructions + avoid ambiguity
+Human Intelligence Tasks (HITs) need to be simple + unambiguous
+ensure quality HITs by assigning same task to multiple labelers + make sure many people apply the same labels
+
+Amazon Mechanical Turk = labeling tool
+human intelligence on demand
+access to a global, on-demand, 24x7 workforce
+
+sampling + treatment assignment 
+random sampling = good representation of final population
+ex: clinical trial for a new drug 
+effects of drug vs placebo
+want to make sure random sampling occurs that way you can definitely determine causation = drug had good impact
+if treatment is not random then you can't be definitive and may just ballpark correlation = less than ideal
+
+typical ML workflow
+business problems > ML problem framing > data collection > data prep > data viz + analysis > feature eng > model training > model evaluation > meets business goal? if so, then provide prediction, if not, then repeat 
+
+exploratory data analysis
+- get domain knowledge of the data or ask others who have the domain knowledge 
+- plan for data prep
+- determine data collection needs
+
+once data is in S3 then care read into SageMaker
+ex: breast cancer data - map categorical diagnosis (malignant or benign) based on radius mean (feature) = logistic regression
+
+merge/join data
+can use pandas dataframe merge function to merge/join 2 datasets
+
+descriptive statistics 
+features = columns in a dataset
+column name = feature attribute/name
+colume value = feature value
+overall stats = # of instances (# of rows), # of attributes (# of columns) 
+
+each variable need to examine what the value is
+- numerical attributes
+-- mean, variance, median
+-- use pandas df.describe() function
+- categorical attributes
+-- create histogram bucketing values to observer overall behavior
+-- use pandas df[attribute_name].value_counts() or seaborn's distplot()
+-- look at most frequent values, least frequent values, % of unique values
+- target statistics
+-- examine the assigned targets/outcomes
+- multivariant statistics
+-- look at correlation between different features
+
