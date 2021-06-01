@@ -1,0 +1,143 @@
+###
+https://www.pythonmorsels.com/topics/what-is-a-class/
+###
+when you have an object, you can get the data stored within it and store actions on it
+
+class Product():
+	def __init__(self, name, cost, price):
+		self.name = name
+		self.cost = cost
+		self.price = price
+
+	def profit_margin(self):
+		return self.price - self.cost
+
+when you call a function, you pass in args, and you get the return value of the function
+when you call a class, you pass in args, then you get an object - the object's type is its class
+
+# duck variable points to a Product object
+# attribute is a variable name that lives specifically on one object
+# attributes are different for different product instances
+from product import Product
+duck = Product(name='rubber duck', cost=1, price=5)
+unicorn = Product(name='stuffed unicorn', cost=2, price=10)
+
+a method = a function that lives on that class and specifically operates on instances of that class
+sometimes just accesses data, sometimes changes data
+call product_margin method
+duck.product_margin()
+
+all built-in data types and structures are classes 
+
+the first arg to every method is self
+what is self? a variable that points to the instance of the class you are working with
+python will pass in the instance of the class (object) in the self placeholder
+
+__init__ is an initializer method
+allows you to pass in args to the class and assign to attributes 
+self.x = x
+self.y = y
+
+inherit from another class
+from collections import Counter
+
+class FancyCounter(Counter):
+	def commonest(self):
+		(value1, count1), (value2, count2) = self.most_common(2)
+		if count1 == count2:
+			raise ValueError('No unique most common value')
+		return value1
+
+	# override existing functionality from the parent class
+	def __setitem__(self, key, value):
+		value = max(0, value)
+		# call super to extend functionality
+		return super().__setitem__(key, value)
+
+###
+Python Crash Course book
+###
+
+class = blueprint/template
+object = house = instantiated instance of a blueprint
+can write classes (templates) that extend existing classes (templates) 
+enables sharing code efficiently
+store classes as modules and import classes 
+
+# parenth are empty because not inheriting from another class
+class Dog():
+	# initialize instance of class by setting its attributes
+	# self = reference of the instance itself
+	# self gives the individual instance access to the attributes and methods of the class
+	def__init__(self, name, age):
+		# any variables prefixed with self is available to every method in its class
+		# take the name provided in the arg and store as self.name 
+		# attributes = variables that are accessible throughout instances
+		self.name = name
+		self.age = age
+		# has no explicit return statement, but Python auto returns an instance representing this dog
+
+	# method = function that specifically operates on instances of a class
+	def sit(self):
+		print(f'{self.name.title()} is now sitting.')
+
+	def roll_over(self):
+		print(f'{self.name.title()} rolled over!')
+
+# store the instance in the variable my_dog
+my_dog = Dog('willie', 6)
+# view attribute
+my_dog.name
+# call method
+my_dog.sit()
+
+inheritance
+when a child class inherits from the parent class, it automatically takes on all the attributes and methods of the parent class
+the child class can define new attributes and methods of its own
+
+class Car():
+	def __init__(self, make, model, year):
+		self.make = make
+		self.model = model
+		self.year = year
+		self.odometer_reading = 0
+
+	def increment_odometer(self, miles):
+		self.odometer_reading += miles
+
+	def fill_gas_tank(gallons):
+		print(f'putting in {gallons} gallons of gas into the car')
+
+# when you create a child class, the parent class must be part of the current file and appear before the child class
+class ElectricCar(Car):
+	def __init__(self, make, model, year):
+		# super is a special function that helps Python connect the parent and child classes
+		# tells Python to call the __init__() method of the parent Car class 
+		super().__init__(make, model, year)
+		# after initializing attributes of the parent class, initialize attributes specific to electric cars
+		# can have attributes that reference an object rather than a int/string/etc  
+		self.battery = Battery()
+
+	# if the parent class has the same method name, overwrite it by defining it in the child class with the same method name
+	# Python will ignore the parent class method + execute the child class method
+	def fill_gas_tank():
+		print("I'm electric! No need to fill up the gas tank.")
+
+class Battery():
+	def __init__(self, battery_size=70):
+		self.battery_size = battery_size 
+		self.range = None
+
+	@property
+	def range(self):
+		return self.range
+
+	@range.setter
+	def range(self):
+		if self.battery_size == 70:
+			self.range = 240
+		elif self.battery_size == 85:
+			self.range = 270
+
+my_battery = Battery()
+print(my_battery.range)
