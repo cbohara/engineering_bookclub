@@ -1,0 +1,32 @@
+###
+Automate your document pipeline with intelligent document processing
+###
+https://github.com/aws-samples/amazon-textract-comprehend-a2i/tree/master/ml-summit-2021
+Extract text from documents
+
+"You shall know a word by the company it keeps" 
+NPL uses surrounding words to determine context
+
+Amazon Textract - parse text
+Amazon Comprehend - get sentiment of text
+Amazon A2I - to add optional human review 
+
+Incoming documents dropped in S32 > Lambda function triggers Amazon Textract API to extract content of document > Call Amazon Comprehend API to get sentiment > input to Amazon A2I to get human review > store output into database for later use
+
+###
+Give users relevant answers quickly with intelligent search
+###
+https://aws.amazon.com/kendra/
+Includes basic keyword search
+Also can ask questions in natural language
+
+Employees + customers want answers, not choices
+Traditional search - Google search
+Kendra - intelligent search - returns answer to question itself and then a link to the source doc as well as FAQ
+ingest data via connectors 
+Kendra index documents 
+incremental learning happens automatically
+humans can also manually tune
+deploy intelligent search anywhere - integrate via chatbot like slack chat bot
+
+
