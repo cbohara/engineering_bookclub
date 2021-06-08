@@ -1,3 +1,6 @@
+CDK solution to trigger state machine 
+https://github.com/awslabs/aws-solutions-constructs/tree/main/source/patterns/@aws-solutions-constructs/aws-s3-step-function
+
 Orchestrate multiple ETL jobs using AWS Step Functions and AWS Lambda
 https://aws.amazon.com/blogs/big-data/orchestrate-multiple-etl-jobs-using-aws-step-functions-and-aws-lambda/
 
@@ -26,23 +29,8 @@ PMD job should start as soon as Marketing dataset file is uploaded
 parallel ETL jobs can start and finish anytime 
 final JMSD job can only start after parallel PSD and PMD jobs are complete
 
-main flow starts with AWS step functions state machine
-state machine defines the steps 
-can trigger the state machine many ways
-AWS lambda functions = ETL runners 
-ETL runners are invoked by activity tasks in the Step Functions
-ETL runners need to periodically poll the step function state machine for tasks 
-the state machien responds by providing a task object
-the task object contains inputs for the ETL runner to run the ETL job
-ETL runner maintains state of active jobs in DDB table
-periodically the ETL runner checks the status of active jobs
-when an active ETL job completes, the ETL runner notifies state machine 
-this allows ETL workflow to move to the next step
-
-Starting a State Machine Execution in Response to Amazon S3 Events
-https://docs.aws.amazon.com/step-functions/latest/dg/tutorial-cloudwatch-events-s3.html
-use EventBridge to execute Step Function state machine in response to S3 events (can also put on schedule)
-configure state machine as target of EventBridge 
-
-Use CDK solution to trigger state machine 
-https://github.com/awslabs/aws-solutions-constructs/tree/main/source/patterns/@aws-solutions-constructs/aws-s3-step-function
+pipeline starts with AWS step functions state machine
+state machine defines the steps in the ETL workflow
+invokes the ETL jobs via Lambda functions = ETL Runner
+ex: Lambda job that launches Glue job
+ETL Runners are invoked by activity tasks in step functions

@@ -1,0 +1,26 @@
+https://aws.amazon.com/blogs/developer/introducing-the-cloud-development-kit-for-terraform-preview/
+https://www.hashicorp.com/blog/cdk-for-terraform-enabling-python-and-typescript-support
+https://github.com/hashicorp/terraform-cdk
+
+standard AWS CDK > CloudFormation config
+CDK for Terraform > Terraform config to enable provisioning with Terraform
+
+https://www.dataversity.net/a-development-environment-for-data-with-ci-cd/
+dev env
+ex: new ETL, new schema changes
+we should be able to run isolated experiments of data pipelines in env that is similar to prod without compromising it
+what if we could manage our data lake like a code repo?
+version control of our data allows git-like operations over big data repos 
+https://docs.lakefs.io/
+by creating a branch of our prod data, we get an isolated data env representing a snapshot of our lake
+a branch creates our own private data lake to experiment with
+ex: updating a version of Spark - run the job on experiment branch and if it fails halfway through and intermediate stuff is generated, you can just toss the branch and start fresh
+
+CI of data
+when introducing new data sets to the data lake, we must verify they adhere to quality requirements 
+ex: format, schema, PII governance, etc
+include data quality checks on an isolated branch
+
+CD of data
+orchestration tools that allow us to automate DAG
+ex: Airflow
