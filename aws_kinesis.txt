@@ -1,0 +1,9 @@
+enhanced fanout function event source trigger is not being invoked for aggregated records
+when standard function event source trigger was created and invoked for aggregated records
+
+Streams can have multiple shards and each shard has a unique hash-key range. Each Kinesis record will be pushed to a specific shard based on the record's hash-key falling in particular shard's hash-key range
+
+Aggregate records hash-key is based on the first record's hash-key which thus determines the shard where the aggregated record would end up. Since aggregation library allows aggregating records of different hash keys together, it means if one of those records hash-key belongs to a different shard's hash-key range than the first record then it would be dropped by KCL library
+
+https://github.com/awslabs/kinesis-aggregation/blob/master/potential_data_loss.md
+
