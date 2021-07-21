@@ -1,0 +1,80 @@
+Learning Data Governance
+central goal = data quality
+
+data managment = using data to make good business decision
+data governance = using disciplined behavior across entire org on how we manage that data
+
+central principles:
+transparency
+- clearly understand
+- avoid surprises 
+- gain buy in 
+- gain trust
+- why things are being done and the value of those processes
+
+accountability
+- hold people accountable to take specific actions on specific times
+
+standardization
+- how data is labeled, described, and catagorized*
+- ex: use CA or California?
+- makes data more valuable when can be joined across multiple systems
+
+specific core focus areas:
+policy - set of guidelines by a governing body to achieve goals
+quality - does the integrity of the data give us the confidence to plan + make business decisions?
+compliance - ensuring our data is handled in a way to adhere to regulations
+business intelligence - how we discover + manage insights, manage access to those who want to make insights
+
+why?
+competitive advantage - leveraging insights in data > win in the marketplace
+compliance
+- management oversight
+- risk management
+- accountability
+- timeliness
+- enforcement
+
+common mistake - who owns the data?
+data stewards
+- individual or team who is responsible for data governance
+- create rules + processes for governing data
+- different people than data owners 
+
+why is it important to assign ownership to data?
+- care about the data they have been entrusted
+- accountable to an authority that has an enterprise perspective
+
+data stewards help with
+- agree upon data policy + procedures 
+- resolving data challenges
+- reviewing concerns
+- making strategic decisions
+
+how to design processes?
+deliver MVP + evolve
+
+data management maturity model
+scale
+0 = no maturity
+5 = optimized
+rank current + monitor regularly
+
+categories
+1. data strategy - formally articulated plan, reviewed + endorsed by leadership team
+2. data management - regular backups, only appropriate ppl can access, audit access
+3. data quality - accurate, up to date, complete, appropriate data for use case (fitness)
+4. data operations - lifecycle of data, process for how data enters + exits, data security, disaster recovery
+5. data platforms - technology architecture focus
+6. data support - metrics, analysis capabilties, risk management, configuration management
+
+managing + maintaining new processes is difficult to implement
+- ensure program is documented + easy to understand
+- documentation should reflect processes that have buy in from stakeholders
+ 
+process 
+- performing stewardship
+- managing change - ex: handle new regulation?
+- resolving issues - deal with complex issues - how will they be surfaced and resolved?
+- communications - doesn't happen by accident, need to communicated to relevant stakeholders
+- reporting value - must report the value of the program, frequently ask if the program is providing value
